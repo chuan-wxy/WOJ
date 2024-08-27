@@ -10,6 +10,7 @@ import org.chuan.woj.manager.ProblemManager;
 import org.chuan.woj.mapper.ProblemMapper;
 import org.chuan.woj.mapper.ProblemTagMapper;
 import org.chuan.woj.pojo.dto.problem.ProblemAddDTO;
+import org.chuan.woj.pojo.dto.problem.TagAddDTO;
 import org.chuan.woj.pojo.entity.Problem;
 import org.chuan.woj.pojo.entity.ProblemTag;
 import org.chuan.woj.pojo.entity.Tag;
@@ -33,6 +34,9 @@ public class ProblemServiceImpl extends ServiceImpl<ProblemMapper, Problem>
     implements ProblemService{
     @Autowired
     private ProblemMapper problemMapper;
+
+    @Autowired
+    private org.chuan.woj.mapper.TagMapper TagMapper;
 
     @Autowired
     private ProblemTagMapper problemTagMapper;
@@ -74,6 +78,20 @@ public class ProblemServiceImpl extends ServiceImpl<ProblemMapper, Problem>
             }
         }
         return ResultUtils.success("插入成功");
+    }
+
+    @Override
+    public BaseResponse<String> addTag(TagAddDTO tagAddDTO) throws StatusFailException {
+        problemManager.validateTag(tagAddDTO);
+
+        Tag tag = new Tag();
+        BeanUtils.copyProperties(tagAddDTO, tag);
+        int row = TagMapper.insert(tag);
+        if(row != 1) {
+            log.info("ProblemServiceImpl---->addTag---插入tag失败");
+            throw new StatusFailException("添加失败");
+        }
+        return ResultUtils.success("添加成功");
     }
 }
 

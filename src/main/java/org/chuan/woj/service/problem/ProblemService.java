@@ -5,6 +5,7 @@ import org.chuan.woj.common.BaseResponse;
 import org.chuan.woj.exception.StatusFailException;
 import org.chuan.woj.exception.StatusSystemErrorException;
 import org.chuan.woj.pojo.dto.problem.ProblemAddDTO;
+import org.chuan.woj.pojo.dto.problem.TagAddDTO;
 import org.chuan.woj.pojo.entity.Problem;
 import org.chuan.woj.pojo.entity.Tag;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,4 +21,5 @@ public interface ProblemService extends IService<Problem> {
 
     BaseResponse<String> addProblem(ProblemAddDTO ProblemAddDTO, List<Tag> tagList) throws StatusFailException, StatusSystemErrorException;
 
+    BaseResponse<String> addTag(TagAddDTO tagAddDTO) throws StatusFailException;
 }

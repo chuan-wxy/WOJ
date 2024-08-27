@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.chuan.woj.mapper.ProblemMapper">
 
-    <resultMap id="BaseResultMap" type="generator.domain.Problem">
+    <resultMap id="BaseResultMap" type="org.chuan.woj.pojo.entity.Problem">
             <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="problemId" column="problem_id" jdbcType="VARCHAR"/>
             <result property="title" column="title" jdbcType="VARCHAR"/>
