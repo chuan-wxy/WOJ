@@ -42,7 +42,7 @@ public class ProblemManager {
     }
     public void validateTagList(List<Tag> tagList) throws StatusFailException {
         if(tagList.isEmpty()) {
-            log.debug("ProblemServiceImpl---->addProblem()->ProblemManager.validateSubmitInfo---tagList为空");
+            log.debug("ProblemServiceImpl---->addProblem()->ProblemManager.validateTagList---tagList为空");
             throw new StatusFailException("tagList为空");
         }
         for(Tag tag: tagList) {
@@ -58,6 +58,17 @@ public class ProblemManager {
             if(isTag == null) {
                 throw new StatusFailException("不存在改标签");
             }
+        }
+    }
+
+    public void validateTag(Tag tag) throws StatusFailException {
+        if(tag == null) {
+            log.debug("ProblemServiceImpl---->addProblem()->ProblemManager.validateTag---tag为空");
+            throw new StatusFailException("tag为空");
+        }
+        String name = tag.getName();
+        if(name.isBlank()) {
+            throw new StatusFailException("tag名为空");
         }
     }
 }
