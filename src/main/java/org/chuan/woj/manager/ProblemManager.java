@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.chuan.woj.exception.StatusFailException;
 import org.chuan.woj.mapper.TagMapper;
 import org.chuan.woj.pojo.dto.problem.ProblemAddDTO;
+import org.chuan.woj.pojo.dto.problem.TagAddDTO;
 import org.chuan.woj.pojo.entity.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.metrics.StartupStep;
@@ -61,12 +62,12 @@ public class ProblemManager {
         }
     }
 
-    public void validateTag(Tag tag) throws StatusFailException {
-        if(tag == null) {
+    public void validateTag(TagAddDTO tagAddDTO) throws StatusFailException {
+        if(tagAddDTO == null) {
             log.debug("ProblemServiceImpl---->addProblem()->ProblemManager.validateTag---tag为空");
             throw new StatusFailException("tag为空");
         }
-        String name = tag.getName();
+        String name = tagAddDTO.getName();
         if(name.isBlank()) {
             throw new StatusFailException("tag名为空");
         }
