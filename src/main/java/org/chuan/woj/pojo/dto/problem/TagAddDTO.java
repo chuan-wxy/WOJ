@@ -1,6 +1,7 @@
 package org.chuan.woj.pojo.dto.problem;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import lombok.Data;
 
 import java.io.Serializable;
 
@@ -9,6 +10,7 @@ import java.io.Serializable;
  * @Date: 2024/8/27 15:48
  * @Description:
  */
+@Data
 public class TagAddDTO implements Serializable {
 
     /**
