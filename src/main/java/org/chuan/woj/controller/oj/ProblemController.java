@@ -1,7 +1,9 @@
 package org.chuan.woj.controller.oj;
 
 import lombok.extern.slf4j.Slf4j;
+import org.chuan.woj.annotation.AuthCheck;
 import org.chuan.woj.common.BaseResponse;
+import org.chuan.woj.constant.UserConstant;
 import org.chuan.woj.exception.StatusFailException;
 import org.chuan.woj.exception.StatusSystemErrorException;
 import org.chuan.woj.manager.ProblemManager;
@@ -49,7 +51,8 @@ public class ProblemController {
      * @return
      */
     @PostMapping("/add-tag")
-    public BaseResponse<String> addProblemTag(@RequestBody TagAddDTO tagAddDTO) throws StatusFailException, StatusSystemErrorException {
+    @AuthCheck(mustRole = UserConstant.AMDIN)
+    public BaseResponse<String> addTag(@RequestBody TagAddDTO tagAddDTO) throws StatusFailException, StatusSystemErrorException {
         return problemService.addTag(tagAddDTO);
     }
 
@@ -59,6 +62,7 @@ public class ProblemController {
      * @return
      */
     @PostMapping("/add-problem")
+    @AuthCheck(mustRole = UserConstant.AMDIN)
     public BaseResponse<String> addProblem(@RequestBody ProblemAddDTO ProblemAddDTO, @RequestBody List<org.chuan.woj.pojo.entity.Tag> tagList) throws StatusFailException, StatusSystemErrorException {
         return problemService.addProblem(ProblemAddDTO,tagList);
     }
