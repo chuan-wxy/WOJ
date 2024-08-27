@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.chuan.woj.common.BaseResponse;
 import org.chuan.woj.exception.StatusFailException;
+import org.chuan.woj.exception.StatusSystemErrorException;
 import org.chuan.woj.pojo.dto.problem.ProblemAddDTO;
 import org.chuan.woj.pojo.entity.Problem;
 import org.chuan.woj.pojo.entity.Tag;
@@ -34,7 +35,7 @@ public class ProblemController {
      * @return
      */
     @PostMapping("/add-problem")
-    public BaseResponse<String> addProblem(@RequestBody ProblemAddDTO ProblemAddDTO, @RequestBody List<Tag> tagList) throws StatusFailException {
+    public BaseResponse<String> addProblem(@RequestBody ProblemAddDTO ProblemAddDTO, @RequestBody List<Tag> tagList) throws StatusFailException, StatusSystemErrorException {
         return problemService.addProblem(ProblemAddDTO,tagList);
     }
 
