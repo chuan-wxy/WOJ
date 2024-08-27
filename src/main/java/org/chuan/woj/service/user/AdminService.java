@@ -3,7 +3,7 @@ package org.chuan.woj.service.user;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.chuan.woj.common.BaseResponse;
 import org.chuan.woj.pojo.entity.User;
-import org.chuan.woj.pojo.vo.UserVO;
+import org.chuan.woj.pojo.vo.user.UserVO;
 
 import java.util.List;
 

@@ -1,13 +1,11 @@
 package org.chuan.woj.controller.admin;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
-import org.aspectj.lang.annotation.Around;
 import org.chuan.woj.annotation.AuthCheck;
 import org.chuan.woj.common.BaseResponse;
 import org.chuan.woj.constant.UserConstant;
-import org.chuan.woj.pojo.vo.UserVO;
+import org.chuan.woj.pojo.vo.user.UserVO;
 import org.chuan.woj.service.user.AdminService;
 import org.chuan.woj.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +38,7 @@ public class AdminController {
      * @return
      */
     @GetMapping("search-by-uuid")
-    @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
+    @AuthCheck(mustRole = UserConstant.AMDIN)
     public BaseResponse<UserVO> searchUserById(String uuid) {
         return adminService.searchUserById(uuid);
     }
@@ -51,7 +49,7 @@ public class AdminController {
      * @return
      */
     @GetMapping("/search-list-by-gender")
-    @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
+    @AuthCheck(mustRole = UserConstant.AMDIN)
     public BaseResponse<List<UserVO>> searchUserByGender(String gender) {
         return adminService.searchUserByGneder(gender);
     }
@@ -62,7 +60,7 @@ public class AdminController {
      * @return
      */
     @GetMapping("/delete-by-uuid")
-    @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
+    @AuthCheck(mustRole = UserConstant.AMDIN)
     public BaseResponse<Void> deleteUserByUuid(String uuid) {
         return adminService.deleteUserByUuid(uuid);
     }

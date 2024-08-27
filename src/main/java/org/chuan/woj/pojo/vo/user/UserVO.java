@@ -1,4 +1,4 @@
-package org.chuan.woj.pojo.vo;
+package org.chuan.woj.pojo.vo.user;
 
 import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;

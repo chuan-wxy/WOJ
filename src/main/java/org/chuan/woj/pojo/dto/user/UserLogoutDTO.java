@@ -12,5 +12,9 @@ public class UserLogoutDTO {
 
     private String userAccount;
 
+    /**
+     * 退出时存放jwt
+     * 注销时存放注销验证码
+     */
     private String code;
 }

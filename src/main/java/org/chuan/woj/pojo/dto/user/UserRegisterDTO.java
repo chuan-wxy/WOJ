@@ -10,7 +10,7 @@ import lombok.Data;
  * @Description:
  */
 @Data
-public class UserAddDTO {
+public class UserRegisterDTO {
 
     private String userAccount;
 

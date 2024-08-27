@@ -9,27 +9,14 @@ package org.chuan.woj.constant;
  */
 public interface UserConstant {
 
-    /**
-     * 用户登录态键
-     */
-    String USER_LOGIN_STATE = "user_login";
+    String ROOR = "root";
+    String AMDIN = "admin";
+    String DEFAULT_USER = "default_user";
+    String MUTE_USER = "mute_user";
+    String NO_DISCUSS_USER = "no_discuss_user";
+    String NO_SUBMIT_MUTE_USER = "no_submit_mute_user";
+    String NO_SUBMIT_NO_DISCUSS_USER = "no_submit_no_discuss_user";
+    String NO_SUBMIT_USER = "no_submit_user";
+    String PROBLEM_ADMIN = "problem_admin";
 
-    //  region 权限
-
-    /**
-     * 默认角色
-     */
-    String DEAFAULT_ROLE = "default_user";
-
-    /**
-     * 管理员角色
-     */
-    String ADMIN_ROLE = "admin";
-
-    /**
-     * 被封号
-     */
-    String BAN_ROLE = "ban";
-
-    // endregion
 }

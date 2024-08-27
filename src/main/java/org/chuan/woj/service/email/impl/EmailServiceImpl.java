@@ -11,6 +11,7 @@ import org.chuan.woj.service.email.EmailService;
 import org.chuan.woj.service.user.UserService;
 import org.chuan.woj.utils.EmailUtil;
 import org.chuan.woj.utils.RedisUtil;
+import org.chuan.woj.utils.ResultUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +41,6 @@ public class EmailServiceImpl implements EmailService {
 
     @Override
     public BaseResponse<Void> getCaptchaCode(String email,String content) {
-        System.out.println(1);
         // todo 根据网站配置，判断是否开启注册
         boolean isEmail = Validator.isEmail(email);
         if (!isEmail) {
@@ -57,7 +57,8 @@ public class EmailServiceImpl implements EmailService {
 
         User user = userService.getOne(queryWrapper);
         if (user != null) {
-            return new BaseResponse(400,"改邮箱已被注册");
+            System.out.println(1);
+            return ResultUtils.error("改邮箱已被注册");
         }
 
         String numbers = RandomUtil.randomNumbers(6);

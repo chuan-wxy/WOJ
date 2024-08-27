@@ -63,15 +63,17 @@ public class Interceptor {
         HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
 
         String jwt = request.getHeader("Authorization");
+//        jwt = jwt.split(" ")[1];
+        log.info("拦截器---->jwt令牌为："+jwt);
         // 当前登录用户
         if (jwt == null) {
-            log.info("jwt不存在,未登录");
+            log.info("拦截器---->jwt不存在,未登录");
             return ResultUtils.error("未登录");
         }
 
         boolean res = redisUtil.hasKey(jwt);
         if(!res) {
-            log.info("登陆过期，请重新登录");
+            log.info("拦截器---->登陆过期，请重新登录");
             return ResultUtils.error("登陆过期，请重新登录");
         }
 
@@ -81,15 +83,14 @@ public class Interceptor {
         }
 
         String userAccount = claims.getSubject();
-        System.out.println(userAccount);
-        log.info(userAccount+"通过认证");
+        log.info("拦截器---->"+userAccount+"通过认证");
 
         List<String> roleList = roleMapper.SelectRoleByUserAccount(userAccount);
 
         String mustRole = authCheck.mustRole();
 
         // 不需要权限，放行
-        if (mustRole == null || mustRole == UserConstant.DEAFAULT_ROLE) {
+        if (mustRole == null || mustRole == UserConstant.DEFAULT_USER) {
             return point.proceed();
         }
 

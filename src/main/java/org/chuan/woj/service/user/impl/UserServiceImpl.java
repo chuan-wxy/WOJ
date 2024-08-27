@@ -8,24 +8,26 @@ import cn.hutool.crypto.SecureUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.chuan.woj.common.BaseResponse;
-import org.chuan.woj.common.ResultStatus;
 import org.chuan.woj.common.enums.AccountEnum;
 import org.chuan.woj.common.enums.EmailEnum;
 import org.chuan.woj.exception.StatusFailException;
+import org.chuan.woj.mapper.RoleMapper;
 import org.chuan.woj.mapper.UserMapper;
 import org.chuan.woj.mapper.UserRoleMapper;
-import org.chuan.woj.pojo.dto.user.UserAddDTO;
 import org.chuan.woj.pojo.dto.user.UserLoginDTO;
 import org.chuan.woj.pojo.dto.user.UserLogoutDTO;
 import org.chuan.woj.pojo.dto.user.UserProfileDTO;
+import org.chuan.woj.pojo.dto.user.UserRegisterDTO;
 import org.chuan.woj.pojo.entity.User;
 import org.chuan.woj.pojo.entity.UserRole;
-import org.chuan.woj.pojo.vo.UserLoginVO;
+import org.chuan.woj.pojo.vo.user.UserLoginVO;
+import org.chuan.woj.pojo.vo.user.UserVO;
 import org.chuan.woj.service.user.UserService;
 import org.chuan.woj.utils.EmailUtil;
 import org.chuan.woj.utils.JwtUtil;
@@ -35,6 +37,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * @Author chuan-wxy
@@ -52,46 +56,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     UserRoleMapper userRoleMapper;
 
     @Autowired
+    RoleMapper roleMapper;
+
+    @Autowired
     RedisUtil redisUtil;
 
     @Autowired
     JwtUtil jwtUtil;
-
-    @Override
-    public BaseResponse<Void> getRegisterCode(String email, String content) {
-        // todo 根据网站配置，判断是否开启注册
-        boolean isEmail = Validator.isEmail(email);
-        if (!isEmail) {
-            return new BaseResponse(400, "您的邮箱格式不正确！");
-        }
-
-        String lockKey = EmailEnum.REGISTER_EMAIL_LOCK + email;
-        if(redisUtil.hasKey(lockKey)) {
-            return new BaseResponse(400,"对不起，您的操作频率过快，请在" + redisUtil.getExpire(lockKey) + "秒后再次发送注册邮件！");
-        }
-
-        QueryWrapper<User> queryWrapper = new QueryWrapper<User>();
-        queryWrapper.eq("userAccount",email);
-
-        User user = userMapper.selectOne(queryWrapper);
-        if (user != null) {
-            return new BaseResponse(400,"改邮箱已被注册");
-        }
-
-        String numbers = RandomUtil.randomNumbers(6);
-
-        redisUtil.set(EmailEnum.REGISTER_KEY_PREFIX.getValue() + email, numbers, 10 * 60);//默认验证码有效10分钟
-        redisUtil.set(lockKey, 0, 60);
-        try {
-            log.info(email+"正在发送验证码");
-            EmailUtil.send(email,numbers,content);
-            log.info(email+"验证码发送成功");
-            return new BaseResponse(ResultStatus.SUCCESS);
-        }catch (Exception e) {
-            log.info(email + "验证码发送失败");
-            return new BaseResponse(400,"验证码发送失败");
-        }
-    }
 
     /**
      * 用户注册
@@ -101,7 +72,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public BaseResponse<Void> register(UserAddDTO userAddDTO) throws StatusFailException {
+    public BaseResponse<Void> register(UserRegisterDTO userAddDTO) throws StatusFailException {
         // todo 检查网站是否开启注册
         String userAccount = userAddDTO.getUserAccount();
         String userPassword = userAddDTO.getUserPassword();
@@ -197,11 +168,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
                 redisUtil.del(key);
             }
 
-            String jwt = jwtUtil.generateJwt(userAccount);
-            response.setHeader("Authorization",jwt);
-            response.setHeader("Access-Control-Expose-Headers", "Authorization");
+            String JWT = jwtUtil.generateJwt(userAccount);
+            userLoginVO.setJwt(JWT);
 
-            redisUtil.set(jwt,0,30*60);
+            redisUtil.set(JWT,0,30*60);
+
+            request.getSession().setAttribute("user_login", user);
 
             return ResultUtils.success(userLoginVO);
         } else {
@@ -249,15 +221,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
         QueryWrapper<User> queryWrapper = new QueryWrapper<User>();
         queryWrapper.eq("userAccount",userAccount);
-
         User user = userMapper.selectOne(queryWrapper);
-
         if (user == null) {
             return ResultUtils.error(400,"修改失败，没有该用户");
         }
 
         UpdateWrapper<User> updateWrapper = new UpdateWrapper<User>();
         updateWrapper.eq("userAccount",userAccount);
+
         User newUser = new User();
         BeanUtils.copyProperties(userProfileDTO,newUser);
         newUser.setUpdateTime(DateTime.now());
@@ -280,8 +251,21 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
      */
     @Override
     public BaseResponse<Void> logout(UserLogoutDTO userLogoutDTO) {
-        // todo
-        return null;
+        log.debug("UserServiceImpl---->logout");
+        String JWT = userLogoutDTO.getCode();
+
+        if(JWT==null) {
+            log.info("Jwt为空");
+            return ResultUtils.error("jwt不能为空");
+        }
+
+        if(!jwtUtil.hasToken(JWT)) {
+            log.info("不存在改jwt");
+            return ResultUtils.error("不存在改jwt");
+        }
+
+        jwtUtil.cleanToken(JWT);
+        return ResultUtils.success();
     }
 
     /**
@@ -362,6 +346,51 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             return ResultUtils.error("注销失败");
         }
         return ResultUtils.success();
+    }
+
+    @Override
+    public BaseResponse<List<String>> getUserRole(String userAccount) {
+        if(userAccount.isBlank()) {
+            log.info("获取角色时参数为空");
+            return ResultUtils.error("参数为空");
+        }
+
+        return ResultUtils.success(roleMapper.SelectRoleByUserAccount(userAccount));
+    }
+
+    @Override
+    public BaseResponse<UserLoginVO> getLoginUser(HttpServletRequest request) throws StatusFailException {
+
+        Object userObj = request.getSession().getAttribute("user_login");
+
+        User currentUser = (User) userObj;
+
+        if (currentUser == null || currentUser.getUserAccount() == null) {
+            throw new StatusFailException("未登录");
+        }
+        // 从数据库查询（追求性能的话可以注释，直接走缓存）
+        String userId = currentUser.getUuid();
+
+        currentUser = this.getById(userId);
+        if (currentUser == null) {
+            throw new StatusFailException("未登录");
+        }
+        UserLoginVO userLoginVO = new UserLoginVO();
+
+        BeanUtils.copyProperties(currentUser,userLoginVO);
+        return ResultUtils.success(userLoginVO);
+
+    }
+
+    /**
+     *
+     * @param JWT
+     * @return true 过期
+     */
+    @Override
+    public BaseResponse<Boolean> checkJWT(String JWT) {
+        log.debug("UserServiceImpl---->checkJWT()");
+        return ResultUtils.success(!redisUtil.hasKey(JWT));
     }
 
 }

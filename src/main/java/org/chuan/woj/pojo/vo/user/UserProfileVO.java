@@ -1,23 +1,15 @@
-package org.chuan.woj.pojo.dto.user;
+package org.chuan.woj.pojo.vo.user;
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
- * 用户信息DTO
- *
  * @Author: chuan-wxy
- * @Date: 2024/8/17 10:50
- * @Description: 用于用户修改个人信息
+ * @Date: 2024/8/20 22:03
+ * @Description:
  */
-@Data
-public class UserProfileDTO implements Serializable {
+public class UserProfileVO implements Serializable {
 
     /**
      * 账号（邮箱）

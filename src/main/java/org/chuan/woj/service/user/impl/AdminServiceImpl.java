@@ -2,14 +2,12 @@ package org.chuan.woj.service.user.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.chuan.woj.common.BaseResponse;
 import org.chuan.woj.mapper.UserMapper;
 import org.chuan.woj.pojo.entity.User;
-import org.chuan.woj.pojo.vo.UserVO;
+import org.chuan.woj.pojo.vo.user.UserVO;
 import org.chuan.woj.service.user.AdminService;
-import org.chuan.woj.service.user.UserService;
 import org.chuan.woj.utils.ResultUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;

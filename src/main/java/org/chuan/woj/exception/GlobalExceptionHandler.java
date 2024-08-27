@@ -20,14 +20,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public BaseResponse<?> businessExceptionHandler(Exception e) {
-        log.error("BusinessException"+e);
+        log.error("全局异常响应器---->Exception:{}", e.getMessage(), e);
         return ResultUtils.error(e.getMessage());
     }
-
-    @ExceptionHandler(RuntimeException.class)
-    public BaseResponse<?> runtimeExceptionHandler(RuntimeException e) {
-        log.error("RuntimeException"+e);
-        return ResultUtils.error(ResultStatus.SYSTEM_ERROR.getCode(), "系统错误");
-    }
-
 }

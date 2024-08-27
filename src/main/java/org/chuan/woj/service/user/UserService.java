@@ -1,19 +1,18 @@
 package org.chuan.woj.service.user;
 
-import cn.hutool.http.server.HttpServerRequest;
-import cn.hutool.http.server.HttpServerResponse;
+import cn.hutool.jwt.JWT;
 import com.baomidou.mybatisplus.extension.service.IService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.chuan.woj.common.BaseResponse;
 import org.chuan.woj.exception.StatusFailException;
-import org.chuan.woj.pojo.dto.user.UserAddDTO;
 import org.chuan.woj.pojo.dto.user.UserLoginDTO;
 import org.chuan.woj.pojo.dto.user.UserLogoutDTO;
 import org.chuan.woj.pojo.dto.user.UserProfileDTO;
+import org.chuan.woj.pojo.dto.user.UserRegisterDTO;
 import org.chuan.woj.pojo.entity.User;
-import org.chuan.woj.pojo.vo.UserLoginVO;
-import org.chuan.woj.pojo.vo.UserVO;
+import org.chuan.woj.pojo.vo.user.UserLoginVO;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -25,9 +24,7 @@ import java.util.List;
  */
 public interface UserService extends IService<User> {
 
-    BaseResponse<Void> getRegisterCode(String email,String content);
-
-    BaseResponse<Void> register(UserAddDTO userAddDTO) throws StatusFailException;
+    BaseResponse<Void> register(UserRegisterDTO userAddDTO) throws StatusFailException;
 
     BaseResponse<UserLoginVO> login(UserLoginDTO userLoginDTO, HttpServletRequest request, HttpServletResponse response);
 
@@ -39,4 +36,9 @@ public interface UserService extends IService<User> {
 
     BaseResponse<Void> logoutForever(UserLogoutDTO userLogoutDTO);
 
+    BaseResponse<List<String>> getUserRole(String userAccount);
+
+    BaseResponse<UserLoginVO> getLoginUser(HttpServletRequest request) throws StatusFailException;
+
+    BaseResponse<Boolean> checkJWT(String JWT);
 }
