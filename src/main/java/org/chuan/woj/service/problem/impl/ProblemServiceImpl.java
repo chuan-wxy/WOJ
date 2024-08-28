@@ -55,6 +55,7 @@ public class ProblemServiceImpl extends ServiceImpl<ProblemMapper, Problem>
 
         Problem problem = new Problem();
         BeanUtils.copyProperties(problemAddDTO, problem);
+        problem.setTagList(problemAddDTO.getTagList().toString());
 
         int row = problemMapper.insert(problem);
         if (row != 1) {
