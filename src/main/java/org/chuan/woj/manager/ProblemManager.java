@@ -1,10 +1,16 @@
 package org.chuan.woj.manager;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.extern.slf4j.Slf4j;
 import org.chuan.woj.exception.StatusFailException;
+import org.chuan.woj.mapper.ProblemMapper;
+import org.chuan.woj.mapper.ProblemTagMapper;
 import org.chuan.woj.mapper.TagMapper;
 import org.chuan.woj.pojo.dto.problem.ProblemAddDTO;
 import org.chuan.woj.pojo.dto.problem.TagAddDTO;
+import org.chuan.woj.pojo.entity.Problem;
 import org.chuan.woj.pojo.entity.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.metrics.StartupStep;
@@ -21,6 +27,9 @@ import java.util.List;
 @Slf4j
 @Component
 public class ProblemManager {
+    @Autowired
+    ProblemTagMapper problemMapper;
+
     @Autowired
     TagMapper tagMapper;
 
@@ -39,23 +48,20 @@ public class ProblemManager {
         if(title.isBlank()) {
             throw new StatusFailException("title为空");
         }
-
+        this.validateTagList(problemAddDTO.getTagList());
     }
-    public void validateTagList(List<Tag> tagList) throws StatusFailException {
+    public void validateTagList(List<String> tagList) throws StatusFailException {
         if(tagList.isEmpty()) {
             log.debug("ProblemServiceImpl---->addProblem()->ProblemManager.validateTagList---tagList为空");
             throw new StatusFailException("tagList为空");
         }
-        for(Tag tag: tagList) {
-            String name = tag.getName();
-            Long id = tag.getId();
-            if(name.isBlank()) {
+        for(String tag: tagList) {
+            if(tag.isBlank()) {
                 throw new StatusFailException("tag名为空");
             }
-            if(id == null) {
-                throw new StatusFailException("id为空");
-            }
-            Tag isTag = tagMapper.selectById(id);
+            QueryWrapper<Tag> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("name",tag);
+            Tag isTag = tagMapper.selectOne(queryWrapper);
             if(isTag == null) {
                 throw new StatusFailException("不存在改标签");
             }
@@ -72,6 +78,11 @@ public class ProblemManager {
             throw new StatusFailException("tag名为空");
         }
     }
+//
+//    public void getProblemTitleDTO(Integer limit, Integer currentPage) {
+//        IPage<Problem> page = new Page<>(currentPage, limit);
+//        problemMapper.
+//    }
 }
 
 

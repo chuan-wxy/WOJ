@@ -1,5 +1,6 @@
 package org.chuan.woj.controller.oj;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.extern.slf4j.Slf4j;
 import org.chuan.woj.annotation.AuthCheck;
 import org.chuan.woj.common.BaseResponse;
@@ -9,17 +10,12 @@ import org.chuan.woj.exception.StatusSystemErrorException;
 import org.chuan.woj.manager.ProblemManager;
 import org.chuan.woj.pojo.dto.problem.ProblemAddDTO;
 import org.chuan.woj.pojo.dto.problem.TagAddDTO;
+import org.chuan.woj.pojo.vo.problem.ProblemTitleVO;
 import org.chuan.woj.service.problem.ProblemService;
 import org.chuan.woj.service.problem.ProblemTagService;
 import org.chuan.woj.service.problem.TagService;
-import org.chuan.woj.utils.ResultUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 题目接口（包括题目标题等相关属性）
@@ -58,13 +54,27 @@ public class ProblemController {
 
     /**
      * 新增题目
-     * @param ProblemAddDTO
+     * @param problemAddWithTagDTO
      * @return
      */
     @PostMapping("/add-problem")
     @AuthCheck(mustRole = UserConstant.AMDIN)
-    public BaseResponse<String> addProblem(@RequestBody ProblemAddDTO ProblemAddDTO, @RequestBody List<org.chuan.woj.pojo.entity.Tag> tagList) throws StatusFailException, StatusSystemErrorException {
-        return problemService.addProblem(ProblemAddDTO,tagList);
+    public BaseResponse<String> addProblem(@RequestBody ProblemAddDTO problemAddDTO) throws StatusFailException, StatusSystemErrorException {
+        return problemService.addProblem(problemAddDTO);
     }
+
+    @GetMapping("get-problemtitle")
+    @AuthCheck(mustRole = UserConstant.DEFAULT_USER)
+    public BaseResponse<Page<ProblemTitleVO>> getProblemTitle(@RequestParam(value = "limit", required = false) Integer limit,
+                                                              @RequestParam(value = "currentPage", required = false) Integer currentPage,
+                                                              @RequestParam(value = "keyword", required = false) String keyword,
+                                                              @RequestParam(value = "tagId", required = false) Integer tagId,
+                                                              @RequestParam(value = "difficulty", required = false) Integer difficulty) {
+        return problemService.getProblemTitle(limit, currentPage, keyword, tagId, difficulty);
+    }
+
+//    @GetMapping("get-problem-by-id")
+//    @AuthCheck(mustRole = UserConstant.DEFAULT_USER)
+//    public BaseResponse<ProblemVO> getProblemById()
 
 }

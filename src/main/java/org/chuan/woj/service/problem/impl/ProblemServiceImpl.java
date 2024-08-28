@@ -1,6 +1,8 @@
 package org.chuan.woj.service.problem.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.chuan.woj.common.BaseResponse;
@@ -14,17 +16,19 @@ import org.chuan.woj.pojo.dto.problem.TagAddDTO;
 import org.chuan.woj.pojo.entity.Problem;
 import org.chuan.woj.pojo.entity.ProblemTag;
 import org.chuan.woj.pojo.entity.Tag;
+import org.chuan.woj.pojo.vo.problem.ProblemTitleVO;
 import org.chuan.woj.service.problem.ProblemService;
 import org.chuan.woj.utils.ResultUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.yaml.snakeyaml.events.Event;
 
 import java.util.List;
 
 /**
-* @author lenovo
+* @author chuan-wxy
 * @description 针对表【problem】的数据库操作Service实现
 * @createDate 2024-08-26 16:25:01
 */
@@ -36,7 +40,7 @@ public class ProblemServiceImpl extends ServiceImpl<ProblemMapper, Problem>
     private ProblemMapper problemMapper;
 
     @Autowired
-    private org.chuan.woj.mapper.TagMapper TagMapper;
+    private org.chuan.woj.mapper.TagMapper tagMapper;
 
     @Autowired
     private ProblemTagMapper problemTagMapper;
@@ -46,10 +50,9 @@ public class ProblemServiceImpl extends ServiceImpl<ProblemMapper, Problem>
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public BaseResponse<String> addProblem(ProblemAddDTO problemAddDTO, List<Tag> tagList) throws StatusFailException, StatusSystemErrorException {
+    public BaseResponse<String> addProblem(ProblemAddDTO problemAddDTO) throws StatusFailException, StatusSystemErrorException {
 
         problemManager.validateSubmitInfo(problemAddDTO);
-        problemManager.validateTagList(tagList);
 
         String author = problemAddDTO.getAuthor();
 
@@ -62,15 +65,19 @@ public class ProblemServiceImpl extends ServiceImpl<ProblemMapper, Problem>
         }
 
         QueryWrapper<Problem> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("problem_id",problemAddDTO.getProblemId());
+        queryWrapper.eq("problemId",problemAddDTO.getProblemId());
         problem = problemMapper.selectOne(queryWrapper);
         long problemId = problem.getId();
 
         log.info("ProblemServiceImpl---->addProblem()---插入Problem失败");
-        for(Tag tag:tagList) {
+        for(String tag : problemAddDTO.getTagList()) {
             ProblemTag problemTag = new ProblemTag();
+
+            Long tid = tagMapper.seleceIdByName(tag);
+
             problemTag.setPid(problemId);
-            problemTag.setTid(tag.getId());
+            problemTag.setTid(tid);
+
             row = problemTagMapper.insert(problemTag);
             if(row != 1) {
                 log.info("ProblemServiceImpl---->addProblem()---插入ProblemTag失败");
@@ -86,12 +93,25 @@ public class ProblemServiceImpl extends ServiceImpl<ProblemMapper, Problem>
 
         Tag tag = new Tag();
         BeanUtils.copyProperties(tagAddDTO, tag);
-        int row = TagMapper.insert(tag);
+        int row = tagMapper.insert(tag);
         if(row != 1) {
             log.info("ProblemServiceImpl---->addTag---插入tag失败");
             throw new StatusFailException("添加失败");
         }
         return ResultUtils.success("添加成功");
+    }
+
+    @Override
+    public BaseResponse<Page<ProblemTitleVO>> getProblemTitle(Integer limit, Integer currentPage, String keyword, Integer tagId, Integer difficulty) {
+        if(keyword == null && tagId == null && difficulty == null) {
+            // 题库页普通查询
+             problemManager.getProblemTitleDTO(limit, currentPage);
+            IPage<Problem> page = new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(currentPage, limit);
+        } else {
+            // 条件查询
+            return null;
+        }
+        return null;
     }
 }
 
