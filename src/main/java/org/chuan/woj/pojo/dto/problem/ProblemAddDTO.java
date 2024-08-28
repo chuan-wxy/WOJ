@@ -5,7 +5,9 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @Author: chuan-wxy
@@ -13,7 +15,7 @@ import java.util.Date;
  * @Description:
  */
 @Data
-public class ProblemAddDTO {
+public class ProblemAddDTO implements Serializable {
 
     /**
      * 问题的自定义ID
@@ -29,6 +31,11 @@ public class ProblemAddDTO {
      * 作者
      */
     private String author;
+
+    /**
+     * 标签
+     */
+    private List<String> tagList;
 
     /**
      * 单位ms
@@ -110,7 +117,5 @@ public class ProblemAddDTO {
      */
     private String ioWriteFileName;
 
-
-    @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 }
