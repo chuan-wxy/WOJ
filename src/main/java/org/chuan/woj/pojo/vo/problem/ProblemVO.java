@@ -3,8 +3,10 @@ package org.chuan.woj.pojo.vo.problem;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import org.chuan.woj.pojo.entity.Tag;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @Author: chuan-wxy
@@ -15,7 +17,6 @@ public class ProblemVO {
     /**
      * ID
      */
-    @TableId(type = IdType.AUTO)
     private Long id;
 
     /**
@@ -32,6 +33,11 @@ public class ProblemVO {
      * 作者
      */
     private String author;
+
+    /**
+     * 标签
+     */
+    private List<Tag> tagList;
 
     /**
      * 描述
@@ -63,6 +69,5 @@ public class ProblemVO {
      */
     private Integer auth;
 
-    @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 }

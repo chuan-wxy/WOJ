@@ -8,6 +8,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 题目类
@@ -39,6 +40,11 @@ public class Problem implements Serializable {
      * 作者
      */
     private String author;
+
+    /**
+     * 标签
+     */
+    private String tagList;
 
     /**
      * 单位ms
