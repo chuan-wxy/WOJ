@@ -37,7 +37,7 @@ public class ProblemVO {
     /**
      * 标签
      */
-    private List<Tag> tagList;
+    private List<String> tagList;
 
     /**
      * 描述
