@@ -78,11 +78,6 @@ public class ProblemManager {
             throw new StatusFailException("tag名为空");
         }
     }
-//
-//    public void getProblemTitleDTO(Integer limit, Integer currentPage) {
-//        IPage<Problem> page = new Page<>(currentPage, limit);
-//        problemMapper.
-//    }
 }
 
 

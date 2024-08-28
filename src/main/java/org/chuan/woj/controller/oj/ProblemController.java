@@ -54,7 +54,7 @@ public class ProblemController {
 
     /**
      * 新增题目
-     * @param problemAddWithTagDTO
+     * @param problemAddDTO
      * @return
      */
     @PostMapping("/add-problem")
