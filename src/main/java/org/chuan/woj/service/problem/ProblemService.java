@@ -25,5 +25,9 @@ public interface ProblemService extends IService<Problem> {
 
     BaseResponse<String> addTag(TagAddDTO tagAddDTO) throws StatusFailException;
 
-    BaseResponse<Page<ProblemTitleVO>> getProblemTitle(Integer limit, Integer currentPage, String keyword, Integer tagId, Integer difficulty);
+    BaseResponse<Page<ProblemTitleVO>> getProblemTitle(Integer current, Integer size) throws StatusFailException;
+
+    BaseResponse<Page<ProblemTitleVO>> searchProblemTitle(Integer current, Integer size, String text) throws StatusFailException;
+
+    BaseResponse<Page<ProblemTitleVO>> searchProblemTitleTwo(Integer current, Integer size, Long id, String tags, String difficulty, String title) throws StatusFailException;
 }

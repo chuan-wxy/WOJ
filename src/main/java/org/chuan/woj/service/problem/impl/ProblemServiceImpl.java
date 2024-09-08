@@ -18,11 +18,14 @@ import org.chuan.woj.pojo.entity.ProblemTag;
 import org.chuan.woj.pojo.entity.Tag;
 import org.chuan.woj.pojo.vo.problem.ProblemTitleVO;
 import org.chuan.woj.service.problem.ProblemService;
+import org.chuan.woj.utils.DataExtractorUtil;
 import org.chuan.woj.utils.ResultUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * @author chuan-wxy
@@ -44,6 +47,10 @@ public class ProblemServiceImpl extends ServiceImpl<ProblemMapper, Problem>
 
     @Autowired
     ProblemManager problemManager;
+
+
+    @Autowired
+    DataExtractorUtil dataExtractorUtil;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -100,15 +107,38 @@ public class ProblemServiceImpl extends ServiceImpl<ProblemMapper, Problem>
     }
 
     @Override
-    public BaseResponse<Page<ProblemTitleVO>> getProblemTitle(Integer limit, Integer currentPage, String keyword, Integer tagId, Integer difficulty) {
-        if (keyword == null && tagId == null && difficulty == null) {
-            // 题库页普通查询
-            IPage<Problem> page = new Page<>(currentPage, limit);
-        } else {
-            // 条件查询
-            return null;
+    public BaseResponse<Page<ProblemTitleVO>> getProblemTitle(Integer current, Integer size) throws StatusFailException {
+        if(current==null || size==null) {
+            log.info("ProblemServiceImpl---->getProblemTitle---current和size为空");
+            throw new StatusFailException("current和size不能为空");
         }
-        return null;
+        Page<Problem> page = this.page(new Page<>(current, size));
+        return ResultUtils.success(problemManager.getProblemTitleVOPage(page));
+    }
+
+    @Override
+    public BaseResponse<Page<ProblemTitleVO>> searchProblemTitle(Integer current, Integer size, String text) throws StatusFailException {
+        if(current==null||size==null) {
+            throw new StatusFailException("current和size不能为空");
+        }
+        dataExtractorUtil.doExtraction(text);
+        List<String> difficulty = dataExtractorUtil.getDifficulties();
+        List<String> tags = dataExtractorUtil.getTags();
+        List<String> keyword = dataExtractorUtil.getKeywords();
+        // 题库页普通查询
+        Page<Problem> page = this.page(new Page<>(current, size),
+                problemManager.getQueryWrapper(keyword,tags,difficulty));
+        return ResultUtils.success(problemManager.getProblemTitleVOPage(page));
+    }
+
+    @Override
+    public BaseResponse<Page<ProblemTitleVO>> searchProblemTitleTwo(Integer current, Integer size, Long id, String tags, String difficulty, String title) throws StatusFailException {
+        if(current==null||size==null) {
+            throw new StatusFailException("current和size不能为空");
+        }
+        Page<Problem> page = this.page(new Page<>(current, size),
+                problemManager.getQueryWrapperTwo(id,tags,difficulty,title));
+        return ResultUtils.success(problemManager.getProblemTitleVOPage(page));
     }
 }
 
