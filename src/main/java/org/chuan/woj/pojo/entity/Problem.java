@@ -21,7 +21,7 @@ import java.util.List;
 @Data
 public class Problem implements Serializable {
     /**
-     *
+     * id
      */
     @TableId(type = IdType.AUTO)
     private Long id;

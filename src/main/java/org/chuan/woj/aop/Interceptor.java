@@ -63,7 +63,7 @@ public class Interceptor {
         HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
 
         String jwt = request.getHeader("Authorization");
-//        jwt = jwt.split(" ")[1];
+        // jwt = jwt.split(" ")[1];
         log.info("拦截器---->jwt令牌为："+jwt);
         // 当前登录用户
         if (jwt == null) {
