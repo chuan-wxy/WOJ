@@ -8,12 +8,12 @@
             <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="pid" column="pid" jdbcType="BIGINT"/>
             <result property="tid" column="tid" jdbcType="BIGINT"/>
-            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
-            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="createTime" column="createTime" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="updateTime" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         id,pid,tid,
-        create_time,update_time
+        createTime,updateTime
     </sql>
 </mapper>
