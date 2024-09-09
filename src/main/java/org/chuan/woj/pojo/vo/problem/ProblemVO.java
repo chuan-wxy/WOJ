@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import org.chuan.woj.pojo.entity.Tag;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -13,7 +14,7 @@ import java.util.List;
  * @Date: 2024/8/26 16:30
  * @Description:
  */
-public class ProblemVO {
+public class ProblemVO implements Serializable {
     /**
      * ID
      */
