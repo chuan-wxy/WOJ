@@ -4,6 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
+import com.baomidou.mybatisplus.core.toolkit.sql.SqlUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +19,7 @@ import org.chuan.woj.pojo.dto.problem.TagAddDTO;
 import org.chuan.woj.pojo.entity.Problem;
 import org.chuan.woj.pojo.entity.Tag;
 import org.chuan.woj.pojo.vo.problem.ProblemTitleVO;
+import org.chuan.woj.utils.SqlUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.metrics.StartupStep;
 import org.springframework.stereotype.Component;
@@ -109,18 +111,18 @@ public class ProblemManager {
     public QueryWrapper<Problem> getQueryWrapperTwo(Long id, String tags, String difficulty, String title) {
         QueryWrapper<Problem> queryWrapper = new QueryWrapper<>();
 
-        queryWrapper.like(id!=null,"id", id);
+        queryWrapper.eq(id!=null,"id", id);
         queryWrapper.like(title!=null,"title", title);
         queryWrapper.like(tags!=null ,"tagList", tags);
         queryWrapper.like(difficulty!=null ,"difficulty", difficulty);
 
         // todo queryWrapper.eq( "isDelete", false);
+
         return queryWrapper;
     }
 
-    public Page<ProblemTitleVO> getProblemTitleVOPage(Page<Problem> problemPage) {
+    public Page<ProblemTitleVO> getProblemTitleVOPage(IPage<Problem> problemPage) {
         List<Problem> questionList = problemPage.getRecords();
-
         Page<ProblemTitleVO> problemTitleVOPage = new Page<>(problemPage.getCurrent(), problemPage.getSize(), problemPage.getTotal());
 
         if (CollUtil.isEmpty(questionList)) {
@@ -132,7 +134,9 @@ public class ProblemManager {
             ProblemTitleVO problemTitleVO = ProblemTitleVO.objToVo(question);
             return problemTitleVO;
         }).collect(Collectors.toList());
+
         problemTitleVOPage.setRecords(questionTitleVOList);
+
         return problemTitleVOPage;
     }
 }

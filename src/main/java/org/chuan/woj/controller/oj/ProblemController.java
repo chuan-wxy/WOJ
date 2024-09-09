@@ -1,5 +1,6 @@
 package org.chuan.woj.controller.oj;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.extern.slf4j.Slf4j;
 import org.chuan.woj.annotation.AuthCheck;
@@ -10,10 +11,12 @@ import org.chuan.woj.exception.StatusSystemErrorException;
 import org.chuan.woj.manager.ProblemManager;
 import org.chuan.woj.pojo.dto.problem.ProblemAddDTO;
 import org.chuan.woj.pojo.dto.problem.TagAddDTO;
+import org.chuan.woj.pojo.entity.Problem;
 import org.chuan.woj.pojo.vo.problem.ProblemTitleVO;
 import org.chuan.woj.service.problem.ProblemService;
 import org.chuan.woj.service.problem.ProblemTagService;
 import org.chuan.woj.service.problem.TagService;
+import org.chuan.woj.utils.ResultUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -101,13 +104,14 @@ public class ProblemController {
      * @throws StatusFailException
      */
     @GetMapping("search-problemtitlelist")
-    public BaseResponse<Page<ProblemTitleVO>> searchProblemTitleTwo(
+    public BaseResponse<IPage<ProblemTitleVO>> searchProblemTitleTwo(
             @RequestParam(value = "current") Integer current,
             @RequestParam(value = "size") Integer size,
             @RequestParam(value = "id",required = false) Long id,
             @RequestParam(value = "tags",required = false) String tags,
             @RequestParam(value = "difficulty",required = false) String difficulty,
             @RequestParam(value = "title",required = false) String title) throws StatusFailException {
+
         return problemService.searchProblemTitleTwo(current, size,id,tags,difficulty,title);
     }
 

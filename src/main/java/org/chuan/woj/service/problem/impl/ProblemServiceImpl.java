@@ -132,10 +132,11 @@ public class ProblemServiceImpl extends ServiceImpl<ProblemMapper, Problem>
     }
 
     @Override
-    public BaseResponse<Page<ProblemTitleVO>> searchProblemTitleTwo(Integer current, Integer size, Long id, String tags, String difficulty, String title) throws StatusFailException {
+    public BaseResponse<IPage<ProblemTitleVO>> searchProblemTitleTwo(Integer current, Integer size, Long id, String tags, String difficulty, String title) throws StatusFailException {
         if(current==null||size==null) {
             throw new StatusFailException("current和size不能为空");
         }
+
         Page<Problem> page = this.page(new Page<>(current, size),
                 problemManager.getQueryWrapperTwo(id,tags,difficulty,title));
         return ResultUtils.success(problemManager.getProblemTitleVOPage(page));
