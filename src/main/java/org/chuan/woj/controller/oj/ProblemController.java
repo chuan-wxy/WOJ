@@ -11,13 +11,11 @@ import org.chuan.woj.exception.StatusSystemErrorException;
 import org.chuan.woj.manager.ProblemManager;
 import org.chuan.woj.pojo.dto.problem.ProblemAddDTO;
 import org.chuan.woj.pojo.dto.problem.TagAddDTO;
-import org.chuan.woj.pojo.entity.Problem;
-import org.chuan.woj.pojo.entity.Tag;
 import org.chuan.woj.pojo.vo.problem.ProblemTitleVO;
+import org.chuan.woj.pojo.vo.problem.TagVO;
 import org.chuan.woj.service.problem.ProblemService;
 import org.chuan.woj.service.problem.ProblemTagService;
 import org.chuan.woj.service.problem.TagService;
-import org.chuan.woj.utils.ResultUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -124,7 +122,7 @@ public class ProblemController {
      * @return
      */
     @GetMapping("/get-problemtaglist")
-    public BaseResponse<List<Tag>> getProblemTagList() {
+    public BaseResponse<List<TagVO>> getProblemTagList() {
         return TagService.getProblemTagList();
     }
 
