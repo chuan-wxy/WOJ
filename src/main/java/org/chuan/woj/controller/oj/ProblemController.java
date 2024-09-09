@@ -12,6 +12,7 @@ import org.chuan.woj.manager.ProblemManager;
 import org.chuan.woj.pojo.dto.problem.ProblemAddDTO;
 import org.chuan.woj.pojo.dto.problem.TagAddDTO;
 import org.chuan.woj.pojo.entity.Problem;
+import org.chuan.woj.pojo.entity.Tag;
 import org.chuan.woj.pojo.vo.problem.ProblemTitleVO;
 import org.chuan.woj.service.problem.ProblemService;
 import org.chuan.woj.service.problem.ProblemTagService;
@@ -19,6 +20,8 @@ import org.chuan.woj.service.problem.TagService;
 import org.chuan.woj.utils.ResultUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * 题目接口（包括题目标题等相关属性）
@@ -66,7 +69,7 @@ public class ProblemController {
         return problemService.addProblem(problemAddDTO);
     }
 
-    @GetMapping("get-problemtitle")
+    @GetMapping("/get-problemtitle")
     @AuthCheck(mustRole = UserConstant.DEFAULT_USER)
     public BaseResponse<Page<ProblemTitleVO>> getProblemTitle(@RequestParam(value = "size", required = false) Integer size,
                                                               @RequestParam(value = "current", required = false) Integer current) throws StatusFailException {
@@ -82,7 +85,7 @@ public class ProblemController {
      * @return
      * @throws StatusFailException
      */
-    @GetMapping("search-problemtitle")
+    @GetMapping("/search-problemtitle")
     @AuthCheck(mustRole = UserConstant.DEFAULT_USER)
     public BaseResponse<Page<ProblemTitleVO>> searchProblemTitleOne(
                                                               @RequestParam(value = "current") Integer current,
@@ -103,7 +106,7 @@ public class ProblemController {
      * @return
      * @throws StatusFailException
      */
-    @GetMapping("search-problemtitlelist")
+    @GetMapping("/search-problemtitlelist")
     public BaseResponse<IPage<ProblemTitleVO>> searchProblemTitleTwo(
             @RequestParam(value = "current") Integer current,
             @RequestParam(value = "size") Integer size,
@@ -113,6 +116,16 @@ public class ProblemController {
             @RequestParam(value = "title",required = false) String title) throws StatusFailException {
 
         return problemService.searchProblemTitleTwo(current, size,id,tags,difficulty,title);
+    }
+
+    /**
+     * 获取所有题目标签
+     *
+     * @return
+     */
+    @GetMapping("/get-problemtaglist")
+    public BaseResponse<List<Tag>> getProblemTagList() {
+        return TagService.getProblemTagList();
     }
 
 }

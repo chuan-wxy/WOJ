@@ -1,7 +1,10 @@
 package org.chuan.woj.service.problem;
 
+import org.chuan.woj.common.BaseResponse;
 import org.chuan.woj.pojo.entity.Tag;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
 
 /**
 * @author lenovo
@@ -9,5 +12,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
 * @createDate 2024-08-27 12:07:13
 */
 public interface TagService extends IService<Tag> {
-
+    BaseResponse<List<Tag>> getProblemTagList();
 }
