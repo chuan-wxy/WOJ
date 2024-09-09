@@ -17,6 +17,8 @@ import org.chuan.woj.pojo.entity.Problem;
 import org.chuan.woj.pojo.entity.ProblemTag;
 import org.chuan.woj.pojo.entity.Tag;
 import org.chuan.woj.pojo.vo.problem.ProblemTitleVO;
+import org.chuan.woj.pojo.vo.problem.ProblemVO;
+import org.chuan.woj.pojo.vo.problem.TagVO;
 import org.chuan.woj.service.problem.ProblemService;
 import org.chuan.woj.utils.DataExtractorUtil;
 import org.chuan.woj.utils.ResultUtils;
@@ -114,6 +116,20 @@ public class ProblemServiceImpl extends ServiceImpl<ProblemMapper, Problem>
         }
         Page<Problem> page = this.page(new Page<>(current, size));
         return ResultUtils.success(problemManager.getProblemTitleVOPage(page));
+    }
+
+    @Override
+    public BaseResponse<ProblemVO> getProblem(Long id) throws StatusFailException {
+        if (id == null) {
+            throw new StatusFailException("id为空");
+        }
+        QueryWrapper<Problem> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("id", id);
+
+        Problem problem = problemMapper.selectOne(queryWrapper);
+        ProblemVO problemVO = new ProblemVO();
+        BeanUtils.copyProperties(problem, problemVO);
+        return ResultUtils.success(problemVO);
     }
 
     @Override

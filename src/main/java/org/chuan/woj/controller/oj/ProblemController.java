@@ -12,6 +12,7 @@ import org.chuan.woj.manager.ProblemManager;
 import org.chuan.woj.pojo.dto.problem.ProblemAddDTO;
 import org.chuan.woj.pojo.dto.problem.TagAddDTO;
 import org.chuan.woj.pojo.vo.problem.ProblemTitleVO;
+import org.chuan.woj.pojo.vo.problem.ProblemVO;
 import org.chuan.woj.pojo.vo.problem.TagVO;
 import org.chuan.woj.service.problem.ProblemService;
 import org.chuan.woj.service.problem.ProblemTagService;
@@ -72,6 +73,19 @@ public class ProblemController {
     public BaseResponse<Page<ProblemTitleVO>> getProblemTitle(@RequestParam(value = "size", required = false) Integer size,
                                                               @RequestParam(value = "current", required = false) Integer current) throws StatusFailException {
         return problemService.getProblemTitle(current,size);
+    }
+
+    /**
+     * 获取题目详细信息
+     *
+     * @param id
+     * @return
+     * @throws StatusFailException
+     */
+    @GetMapping("/get-problem")
+    @AuthCheck(mustRole = UserConstant.DEFAULT_USER)
+    public BaseResponse<ProblemVO> getProblem(Long id) throws StatusFailException {
+        return problemService.getProblem(id);
     }
 
     /**
