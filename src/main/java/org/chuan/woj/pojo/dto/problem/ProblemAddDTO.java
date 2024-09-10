@@ -97,25 +97,5 @@ public class ProblemAddDTO implements Serializable {
      */
     private String spjLanguage;
 
-    /**
-     * 修改题目的管理员用户名
-     */
-    private String modifiedUser;
-
-    /**
-     * 是否是file io自定义输入输出文件模式
-     */
-    private Integer isFileIo;
-
-    /**
-     * 题目指定的file io输入文件的名称
-     */
-    private String ioReadFileName;
-
-    /**
-     * 题目指定的file io输出文件的名称
-     */
-    private String ioWriteFileName;
-
     private static final long serialVersionUID = 1L;
 }
