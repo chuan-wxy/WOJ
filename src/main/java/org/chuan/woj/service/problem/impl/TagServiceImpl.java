@@ -31,8 +31,6 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag>
             BeanUtils.copyProperties(tag, tagVO);
             tagVOList.add(tagVO);
         }
-        System.out.println(list);
-        System.out.println(tagVOList);
         return ResultUtils.success(tagVOList);
     }
 }

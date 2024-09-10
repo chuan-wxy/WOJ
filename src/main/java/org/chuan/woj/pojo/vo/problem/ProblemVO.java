@@ -3,6 +3,7 @@ package org.chuan.woj.pojo.vo.problem;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import lombok.Data;
 import org.chuan.woj.pojo.entity.Tag;
 
 import java.io.Serializable;
@@ -14,6 +15,7 @@ import java.util.List;
  * @Date: 2024/8/26 16:30
  * @Description:
  */
+@Data
 public class ProblemVO implements Serializable {
     /**
      * ID
