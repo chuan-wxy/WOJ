@@ -34,7 +34,7 @@ public class ProblemSubmit implements Serializable {
     /**
      * 判题信息
      */
-    private String judgeinfo;
+    private String judgeInfo;
 
     /**
      * 判题状态（0 - 待判题、1 - 判题中、2 - 判题结束）
@@ -49,7 +49,7 @@ public class ProblemSubmit implements Serializable {
     /**
      * 用户id
      */
-    private Long uid;
+    private String uid;
 
     /**
      * 
