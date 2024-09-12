@@ -354,7 +354,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             log.info("获取角色时参数为空");
             return ResultUtils.error("参数为空");
         }
-
+        System.out.println(roleMapper.SelectRoleByUserAccount(userAccount));
         return ResultUtils.success(roleMapper.SelectRoleByUserAccount(userAccount));
     }
 
@@ -378,6 +378,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         UserLoginVO userLoginVO = new UserLoginVO();
 
         BeanUtils.copyProperties(currentUser,userLoginVO);
+
         return ResultUtils.success(userLoginVO);
 
     }
