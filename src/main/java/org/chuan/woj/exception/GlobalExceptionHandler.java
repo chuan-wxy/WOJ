@@ -20,7 +20,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public BaseResponse<?> businessExceptionHandler(Exception e) {
-        log.error("全局异常响应器---->Exception:{}", e.getMessage(), e);
+        log.error("全局异常响应器---->Exception:{}", e);
         return ResultUtils.error(e.getMessage());
     }
 }
