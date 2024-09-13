@@ -60,5 +60,7 @@ logging:
   level:
     org.springframework.jdbc.support.JdbcTransactionManager: debug
 
-
+#自定义代码代码沙箱的输出地址，默认为false，使用项目目录下的questionCode作为文件的输出地址，开启后将使用指定的地址
+codefile:
+  judgecasepath: "D:\\Desktop\\WOJ\\NEW\\WOJ\\WOJ\\judgeCase"
 
