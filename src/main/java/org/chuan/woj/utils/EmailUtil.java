@@ -1,12 +1,9 @@
 package org.chuan.woj.utils;
 
 import jakarta.annotation.PostConstruct;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.HtmlEmail;
-import org.apache.logging.log4j.spi.LoggerContextFactory;
-import org.chuan.woj.service.email.impl.EmailServiceImpl;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -17,8 +14,8 @@ import org.springframework.stereotype.Component;
  * @Create 2024/8/15 9:46
  */
 @Component
+@Slf4j
 public class EmailUtil {
-    private static final Logger log = LoggerFactory.getLogger(EmailUtil.class);
 
     @Value("${emailUtil.hostName}")
     private String hostName;
@@ -77,8 +74,7 @@ public class EmailUtil {
             email.send();
             return true;
         } catch (EmailException e) {
-            System.out.println(e);
-            e.printStackTrace();
+            log.info("EmailUtil--->send---",e);
             return false;
         }
     }
