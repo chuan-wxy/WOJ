@@ -1,6 +1,7 @@
 package org.chuan.woj.pojo.vo.problemSubmit;
 
 import cn.hutool.json.JSONUtil;
+import lombok.Data;
 import org.chuan.woj.pojo.dto.problemSubmit.JudgeInfo;
 import org.chuan.woj.pojo.vo.user.UserVO;
 import org.springframework.beans.BeanUtils;
@@ -13,6 +14,7 @@ import java.util.Date;
  * @Date: 2024/9/12 12:57
  * @Description:
  */
+@Data
 public class ProblemSubmitVO  implements Serializable {
     /**
      * id
@@ -48,15 +50,6 @@ public class ProblemSubmitVO  implements Serializable {
      */
     private String uid;
 
-    /**
-     * 创建时间
-     */
-    private Date createTime;
-
-    /**
-     * 更新时间
-     */
-    private Date updateTime;
     private UserVO userVO;
 //    private QuestionVO questionVO;
 //
