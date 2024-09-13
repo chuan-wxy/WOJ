@@ -65,12 +65,11 @@ public class EmailServiceImpl implements EmailService {
 
         redisUtil.set(EmailEnum.REGISTER_KEY_PREFIX.getValue() + email, numbers, 10 * 60);//默认验证码有效10分钟
         redisUtil.set(lockKey, 0, 60);
-        try {
-            log.info(email+"正在发送验证码");
-            EmailUtil.send(email,numbers,content);
+        log.info(email+"正在发送验证码");
+        if(EmailUtil.send(email,numbers,content)) {
             log.info(email+"验证码发送成功");
             return new BaseResponse(ResultStatus.SUCCESS);
-        }catch (Exception e) {
+        } else {
             log.info(email + "验证码发送失败");
             return new BaseResponse(400,"验证码发送失败");
         }
