@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.chuan.woj.common.BaseResponse;
 import org.chuan.woj.exception.StatusFailException;
+import org.chuan.woj.exception.StatusSystemErrorException;
 import org.chuan.woj.pojo.dto.problemSubmit.ProblemSubmitAddDTO;
 import org.chuan.woj.pojo.entity.User;
 import org.chuan.woj.pojo.vo.problemSubmit.ProblemSubmitVO;
@@ -15,6 +16,8 @@ import org.chuan.woj.service.user.UserService;
 import org.chuan.woj.utils.ResultUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
 
 /**
  * 代码提交接口
@@ -36,7 +39,7 @@ public class ProblemSubmitController {
 
     @PostMapping("/")
     public BaseResponse<ProblemSubmitVO> doSubmit(@RequestBody ProblemSubmitAddDTO problemSubmitAddDTO,
-                                                             HttpServletRequest request) throws StatusFailException {
+                                                             HttpServletRequest request) throws StatusFailException, StatusSystemErrorException, IOException, InterruptedException {
         final UserLoginVO loginUser = userService.getLoginUser(request).getData();
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("userAccount", loginUser.getUserAccount());
