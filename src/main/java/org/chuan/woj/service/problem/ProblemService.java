@@ -26,7 +26,7 @@ public interface ProblemService extends IService<Problem> {
 
     BaseResponse<String> addProblem(ProblemAddDTO ProblemAddDTO) throws StatusFailException, StatusSystemErrorException;
 
-    BaseResponse<String> addTag(TagAddDTO tagAddDTO) throws StatusFailException;
+    BaseResponse<String> addTag(String tagName) throws StatusFailException;
 
     BaseResponse<Page<ProblemTitleVO>> getProblemTitle(Integer current, Integer size) throws StatusFailException;
 
