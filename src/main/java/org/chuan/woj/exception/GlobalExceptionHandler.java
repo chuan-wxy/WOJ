@@ -23,4 +23,9 @@ public class GlobalExceptionHandler {
         log.error("全局异常响应器---->Exception:{}", e);
         return ResultUtils.error(e.getMessage());
     }
+    @ExceptionHandler(StatusFailException.class)
+    public BaseResponse<?> businessExceptionHandler(StatusFailException e) {
+        log.error("全局异常响应器---->Exception:{}", e);
+        return ResultUtils.error(e.code,e.getMessage());
+    }
 }
