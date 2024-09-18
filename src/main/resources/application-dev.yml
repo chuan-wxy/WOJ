@@ -2,7 +2,7 @@ spring:
   # 数据库配置
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3307/woj_new
+    url: jdbc:mysql://localhost:3306/woj
     username: root
     password: 2w0x0y40706
   data:
