@@ -75,18 +75,17 @@ public class ProblemManager {
             queryWrapper.eq("name", tag);
             Tag isTag = tagMapper.selectOne(queryWrapper);
             if (isTag == null) {
-                throw new StatusFailException("不存在改标签");
+                throw new StatusFailException(201, "不存在改标签");
             }
         }
     }
 
-    public void validateTag(TagAddDTO tagAddDTO) throws StatusFailException {
-        if (tagAddDTO == null) {
+    public void validateTag(String tagName) throws StatusFailException {
+        if (tagName == null) {
             log.debug("ProblemServiceImpl---->addProblem()->ProblemManager.validateTag---tag为空");
             throw new StatusFailException("tag为空");
         }
-        String name = tagAddDTO.getName();
-        if (name.isBlank()) {
+        if (tagName.isBlank()) {
             throw new StatusFailException("tag名为空");
         }
     }
