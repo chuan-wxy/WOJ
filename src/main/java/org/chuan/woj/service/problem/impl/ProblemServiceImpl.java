@@ -103,7 +103,7 @@ public class ProblemServiceImpl extends ServiceImpl<ProblemMapper, Problem>
         tag.setName(tagName);
 
         QueryWrapper<Tag> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("tag",tagName);
+        queryWrapper.eq("name",tagName);
         Tag tag1 = tagMapper.selectOne(queryWrapper);
         if(tag1!=null) {
             return null;
