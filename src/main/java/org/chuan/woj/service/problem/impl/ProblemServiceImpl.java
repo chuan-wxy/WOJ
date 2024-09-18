@@ -24,6 +24,7 @@ import org.chuan.woj.utils.DataExtractorUtil;
 import org.chuan.woj.utils.ResultUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.MethodWrapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -95,11 +96,19 @@ public class ProblemServiceImpl extends ServiceImpl<ProblemMapper, Problem>
     }
 
     @Override
-    public BaseResponse<String> addTag(TagAddDTO tagAddDTO) throws StatusFailException {
-        problemManager.validateTag(tagAddDTO);
+    public BaseResponse<String> addTag(String tagName) throws StatusFailException {
+        problemManager.validateTag(tagName);
 
         Tag tag = new Tag();
-        BeanUtils.copyProperties(tagAddDTO, tag);
+        tag.setName(tagName);
+
+        QueryWrapper<Tag> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("tag",tagName);
+        Tag tag1 = tagMapper.selectOne(queryWrapper);
+        if(tag1!=null) {
+            return null;
+        }
+
         int row = tagMapper.insert(tag);
         if (row != 1) {
             log.info("ProblemServiceImpl---->addTag---插入tag失败");
