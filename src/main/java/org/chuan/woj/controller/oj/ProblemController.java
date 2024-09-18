@@ -48,13 +48,13 @@ public class ProblemController {
 
     /**
      * 新增题目标签
-     * @param tagAddDTO
+     * @param tagName
      * @return
      */
     @PostMapping("/add-tag")
     @AuthCheck(mustRole = UserConstant.AMDIN)
-    public BaseResponse<String> addTag(@RequestBody TagAddDTO tagAddDTO) throws StatusFailException, StatusSystemErrorException {
-        return problemService.addTag(tagAddDTO);
+    public BaseResponse<String> addTag(String tagName) throws StatusFailException, StatusSystemErrorException {
+        return problemService.addTag(tagName);
     }
 
     /**
