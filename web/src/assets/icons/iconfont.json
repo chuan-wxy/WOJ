@@ -1,0 +1,23 @@
+{
+  "id": "4642816",
+  "name": "woj",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "933713",
+      "name": "微信",
+      "font_class": "weixin",
+      "unicode": "e631",
+      "unicode_decimal": 58929
+    },
+    {
+      "icon_id": "1495758",
+      "name": "QQ",
+      "font_class": "QQ",
+      "unicode": "e646",
+      "unicode_decimal": 58950
+    }
+  ]
+}

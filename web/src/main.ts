@@ -1,0 +1,22 @@
+import { createApp } from "vue";
+import { createPinia } from "pinia";
+import App from "./App.vue";
+import router from "./router";
+import ArcoVue from "@arco-design/web-vue";
+import ElementPlus from "element-plus";
+import "@arco-design/web-vue/dist/arco.css";
+import "element-plus/dist/index.css";
+import "bytemd/dist/index.css";
+import "./assets/icons/iconfont.css";
+import "./assets/icons/all.min.css";
+import "./assets/style/css/global.css";
+import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
+
+const pinia = createPinia();
+pinia.use(piniaPluginPersistedstate);
+const app = createApp(App);
+app.use(pinia);
+app.use(router);
+app.use(ArcoVue);
+app.use(ElementPlus);
+app.mount("#app");
