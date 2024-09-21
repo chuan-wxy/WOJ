@@ -40,7 +40,7 @@ public class EmailServiceImpl implements EmailService {
     private static final Logger log = LoggerFactory.getLogger(EmailServiceImpl.class);
 
     @Override
-    public BaseResponse<Void> getCaptchaCode(String email,String content) {
+    public BaseResponse<String> getCaptchaCode(String email,String content) {
         // todo 根据网站配置，判断是否开启注册
         boolean isEmail = Validator.isEmail(email);
         if (!isEmail) {

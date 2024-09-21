@@ -45,7 +45,7 @@ public class UserController {
      * @return
      */
     @GetMapping("/get-register-code")
-    public BaseResponse<Void> getRegisterCode(@RequestParam(value = "email", required = true) String email) {
+    public BaseResponse<String> getRegisterCode(@RequestParam(value = "email", required = true) String email) {
         return emailService.getCaptchaCode(email,null);
     }
 

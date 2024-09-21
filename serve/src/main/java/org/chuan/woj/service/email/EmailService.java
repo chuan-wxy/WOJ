@@ -10,5 +10,5 @@ import org.chuan.woj.pojo.vo.CaptchaVO;
  * @Create 2024/8/15 13:55
  */
 public interface EmailService {
-    BaseResponse<Void> getCaptchaCode(String email,String content);
+    BaseResponse<String> getCaptchaCode(String email,String content);
 }
