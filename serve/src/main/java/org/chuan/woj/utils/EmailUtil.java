@@ -3,6 +3,7 @@ package org.chuan.woj.utils;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.mail.EmailException;
+import org.apache.commons.mail.Email;
 import org.apache.commons.mail.HtmlEmail;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -57,6 +58,10 @@ public class EmailUtil {
             email.setHostName(staticHostName);
             //字符集
             email.setCharset(staticCharset);
+            //设置端口
+            email.setSmtpPort(465);
+            // 开启SSL加密
+            email.setSSL(true);
             //收件人邮箱
             email.addTo(emailAddress);
             //发件人
