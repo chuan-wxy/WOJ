@@ -14,7 +14,7 @@ import lombok.Getter;
 @Getter
 public enum ResultStatus {
 
-    SUCCESS(200,"成功"),
+    SUCCESS(0,"成功"),
 
     FAIL(400,"失败"),
 
