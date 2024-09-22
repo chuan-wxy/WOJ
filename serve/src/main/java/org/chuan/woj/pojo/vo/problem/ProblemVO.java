@@ -18,7 +18,7 @@ import java.util.List;
 @Data
 public class ProblemVO implements Serializable {
     /**
-     * ID
+     * id
      */
     private Long id;
 
@@ -40,7 +40,22 @@ public class ProblemVO implements Serializable {
     /**
      * 标签
      */
-    private List<String> tagList;
+    private String tagList;
+
+    /**
+     * 单位ms
+     */
+    private Integer timeLimit;
+
+    /**
+     * 单位kb
+     */
+    private Integer memoryLimit;
+
+    /**
+     * 单位mb
+     */
+    private Integer stackLimit;
 
     /**
      * 描述
