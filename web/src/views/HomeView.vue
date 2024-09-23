@@ -136,13 +136,4 @@ const activities = [
     color: "#c04851",
   },
 ];
-
-const MdValue = ref("");
-const codeValue = ref("");
-const onMdchange = (v: string) => {
-  MdValue.value = v;
-};
-const codeChange = (v: string) => {
-  codeValue.value = v;
-};
 </script>
