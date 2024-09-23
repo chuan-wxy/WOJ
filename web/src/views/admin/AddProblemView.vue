@@ -46,7 +46,7 @@
         class="upload-demo"
         drag
         headers="POST"
-        action="http://localhost:8088/api/file/upload-judgelist"
+        action=process.env.VUE_APP_PROBLEM_FILE_UPLOAD_PATH
         multiple
         :data="fileData"
       >
