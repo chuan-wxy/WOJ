@@ -111,6 +111,9 @@
               <el-button type="primary" @click="gotoContentById(scope.row.id)">
                 学习
               </el-button>
+              <el-button type="primary" @click="gotoEditById(scope.row.id)">
+                编辑
+              </el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -177,6 +180,14 @@ const router = useRouter();
 const gotoContentById = (id: string) => {
   router.push({
     path: "/problem/content",
+    query: {
+      id: id,
+    },
+  });
+};
+const gotoEditById = (id: string) => {
+  router.push({
+    path: "/admin/addproblem",
     query: {
       id: id,
     },
