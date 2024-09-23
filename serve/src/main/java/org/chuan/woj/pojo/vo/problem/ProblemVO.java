@@ -40,7 +40,7 @@ public class ProblemVO implements Serializable {
     /**
      * 标签
      */
-    private String tagList;
+    private List<String> tagList;
 
     /**
      * 单位ms
