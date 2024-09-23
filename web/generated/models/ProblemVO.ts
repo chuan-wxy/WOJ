@@ -8,6 +8,9 @@ export type ProblemVO = {
     title?: string;
     author?: string;
     tagList?: Array<string>;
+    timeLimit?: number;
+    memoryLimit?: number;
+    stackLimit?: number;
     description?: string;
     input?: string;
     output?: string;
