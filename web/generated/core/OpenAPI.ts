@@ -20,7 +20,7 @@ export type OpenAPIConfig = {
 };
 
 export const OpenAPI: OpenAPIConfig = {
-    BASE: 'http://39.106.12.42:8088/api',
+    BASE: process.env.VUE_APP_BASE || "http://localhost:8088/api",
     VERSION: '0',
     WITH_CREDENTIALS: true,
     CREDENTIALS: 'include',
