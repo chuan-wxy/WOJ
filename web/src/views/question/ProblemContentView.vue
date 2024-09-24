@@ -1,13 +1,13 @@
 <template>
   <div id="problem-content">
     <div class="panel-body">
-      <h2>{{ form.title }}</h2>
+      <h2>{{ problemData.title }}</h2>
       <div class="content">
-        <Viewer :value="form.description" />
+        <Viewer :value="problemData.description" />
       </div>
       <br />
       <div>
-        <CodeEditor ref="codeEditor" :value="submitData.code" />
+        <CodeEditor ref="codeEditor" />
       </div>
       <div>
         <a-button @click="submit">提交</a-button>
@@ -24,13 +24,10 @@
 <script setup lang="ts">
 import { onBeforeMount, ref } from "vue";
 import { useRoute } from "vue-router";
-import gfm from "@bytemd/plugin-gfm";
-import highlight from "@bytemd/plugin-highlight";
 import { ProblemControllerService } from "../../../generated/services/ProblemControllerService";
 import { ElMessage } from "element-plus";
 import CodeEditor from "@/components/CodeEditor.vue";
 import { ProblemSubmitControllerService } from "../../../generated/services/ProblemSubmitControllerService";
-import { Viewer } from "@bytemd/vue-next";
 
 const route = useRoute();
 const isState = ref(true);
@@ -38,7 +35,7 @@ const isHide = ref(true);
 const message = ref("");
 const codeEditor = ref();
 
-const form = ref({
+const problemData = ref({
   id: 0,
   problemId: 0,
   title: 0,
@@ -52,7 +49,6 @@ const form = ref({
   auth: 0,
 });
 
-const plugins = [gfm(), highlight()];
 
 const submitData = ref({
   language: "c++",
@@ -61,6 +57,10 @@ const submitData = ref({
 });
 
 const submit = async () => {
+  if(codeEditor.value.codeEditorData === null || codeEditor.value.codeEditorData === ""){
+    ElMessage.error("代码不能为空");
+    return;
+  }
   isState.value = false;
   isHide.value = false;
   //先清空以前的数据
@@ -85,8 +85,7 @@ const loadData = async () => {
   }
   const res = await ProblemControllerService.getProblem(id as any);
   if (res.code === 0) {
-    form.value = res.data as any;
-    console.log(form.value);
+    problemData.value = res.data as any;
   } else {
     ElMessage.error("加载失败：" + res.message);
   }
