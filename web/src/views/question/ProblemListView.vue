@@ -190,6 +190,7 @@ const gotoEditById = (id: string) => {
     path: "/admin/addproblem",
     query: {
       id: id,
+      update: 1,
     },
   });
 };
