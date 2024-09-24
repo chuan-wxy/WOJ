@@ -10,6 +10,7 @@ import org.chuan.woj.exception.StatusFailException;
 import org.chuan.woj.exception.StatusSystemErrorException;
 import org.chuan.woj.manager.ProblemManager;
 import org.chuan.woj.pojo.dto.problem.ProblemAddDTO;
+import org.chuan.woj.pojo.dto.problem.ProblemUpdateDTO;
 import org.chuan.woj.pojo.dto.problem.TagAddDTO;
 import org.chuan.woj.pojo.vo.problem.ProblemTitleVO;
 import org.chuan.woj.pojo.vo.problem.ProblemVO;
@@ -83,7 +84,6 @@ public class ProblemController {
      * @throws StatusFailException
      */
     @GetMapping("/get-problem")
-    @AuthCheck(mustRole = UserConstant.DEFAULT_USER)
     public BaseResponse<ProblemVO> getProblem(Long id) throws StatusFailException {
         return problemService.getProblem(id);
     }
@@ -140,4 +140,9 @@ public class ProblemController {
         return TagService.getProblemTagList();
     }
 
+    @PostMapping("/update-problem")
+    @AuthCheck(mustRole = UserConstant.AMDIN)
+    public BaseResponse<String> updateProblem(@RequestBody ProblemUpdateDTO problemUpdateDTO) throws StatusFailException, StatusSystemErrorException {
+        return problemService.updateProblem(problemUpdateDTO);
+    }
 }
