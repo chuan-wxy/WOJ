@@ -1,6 +1,8 @@
 package org.chuan.woj.service.problem.impl;
 
+import cn.hutool.core.date.DateTime;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -12,10 +14,12 @@ import org.chuan.woj.manager.ProblemManager;
 import org.chuan.woj.mapper.ProblemMapper;
 import org.chuan.woj.mapper.ProblemTagMapper;
 import org.chuan.woj.pojo.dto.problem.ProblemAddDTO;
+import org.chuan.woj.pojo.dto.problem.ProblemUpdateDTO;
 import org.chuan.woj.pojo.dto.problem.TagAddDTO;
 import org.chuan.woj.pojo.entity.Problem;
 import org.chuan.woj.pojo.entity.ProblemTag;
 import org.chuan.woj.pojo.entity.Tag;
+import org.chuan.woj.pojo.entity.User;
 import org.chuan.woj.pojo.vo.problem.ProblemTitleVO;
 import org.chuan.woj.pojo.vo.problem.ProblemVO;
 import org.chuan.woj.pojo.vo.problem.TagVO;
@@ -145,7 +149,8 @@ public class ProblemServiceImpl extends ServiceImpl<ProblemMapper, Problem>
             tagStr = tagStr.substring(1, tagStr.length() - 1);
         }
 
-        List<String> tagList = Arrays.asList(tagStr.split(","));
+
+        List<String> tagList = Arrays.asList(tagStr.split(", "));
 
         BeanUtils.copyProperties(problem, problemVO);
         problemVO.setTagList(tagList);
@@ -176,6 +181,33 @@ public class ProblemServiceImpl extends ServiceImpl<ProblemMapper, Problem>
         Page<Problem> page = this.page(new Page<>(current, size),
                 problemManager.getQueryWrapperTwo(id,tags,difficulty,title));
         return ResultUtils.success(problemManager.getProblemTitleVOPage(page));
+    }
+
+    @Override
+    public BaseResponse<String> updateProblem(ProblemUpdateDTO problemUpdateDTO) throws StatusFailException {
+        if(problemUpdateDTO == null || problemUpdateDTO.getId() == null) {
+            throw new StatusFailException("id不能为空");
+        }
+        long pid = problemUpdateDTO.getId();
+        Problem problem = problemMapper.selectById(pid);
+        if(problem == null) {
+            throw new StatusFailException("该id不存在");
+        }
+
+        UpdateWrapper<Problem> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("id",pid);
+
+        Problem newProblem = new Problem();
+        BeanUtils.copyProperties(problemUpdateDTO,newProblem);
+        newProblem.setTagList(problemUpdateDTO.getTagList().toString());
+        newProblem.setUpdateTime(DateTime.now());
+        int row = problemMapper.update(newProblem,updateWrapper);
+        if(row != 1) {
+            log.info("ProblemServiceImpl--->updateProblem()---更新题目信息失败");
+            return ResultUtils.error("更新失败");
+        }
+
+        return ResultUtils.success("更新成功");
     }
 }
 

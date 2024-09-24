@@ -7,6 +7,7 @@ import org.chuan.woj.common.BaseResponse;
 import org.chuan.woj.exception.StatusFailException;
 import org.chuan.woj.exception.StatusSystemErrorException;
 import org.chuan.woj.pojo.dto.problem.ProblemAddDTO;
+import org.chuan.woj.pojo.dto.problem.ProblemUpdateDTO;
 import org.chuan.woj.pojo.dto.problem.TagAddDTO;
 import org.chuan.woj.pojo.entity.Problem;
 import org.chuan.woj.pojo.entity.Tag;
@@ -35,4 +36,6 @@ public interface ProblemService extends IService<Problem> {
     BaseResponse<Page<ProblemTitleVO>> searchProblemTitle(Integer current, Integer size, String text) throws StatusFailException;
 
     BaseResponse<IPage<ProblemTitleVO>> searchProblemTitleTwo(Integer current, Integer size, Long id, String tags, String difficulty, String title) throws StatusFailException;
+
+    BaseResponse<String> updateProblem(ProblemUpdateDTO problemUpdateDTO) throws StatusFailException;
 }
