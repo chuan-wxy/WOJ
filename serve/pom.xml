@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>org.chuan</groupId>
 	<artifactId>WOJ</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>v0.1.0</version>
 	<name>WOJ</name>
 	<description>WOJ</description>
 	<url/>
