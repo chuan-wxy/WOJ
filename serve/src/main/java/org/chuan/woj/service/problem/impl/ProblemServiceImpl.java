@@ -28,6 +28,7 @@ import org.springframework.cglib.core.MethodWrapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -69,6 +70,7 @@ public class ProblemServiceImpl extends ServiceImpl<ProblemMapper, Problem>
 
         int row = problemMapper.insert(problem);
         if (row != 1) {
+            log.info("ProblemServiceImpl---->addProblem()---row非1,插入Problem失败");
             return ResultUtils.error("插入失败");
         }
 
@@ -77,7 +79,6 @@ public class ProblemServiceImpl extends ServiceImpl<ProblemMapper, Problem>
         problem = problemMapper.selectOne(queryWrapper);
         long problemId = problem.getId();
 
-        log.info("ProblemServiceImpl---->addProblem()---插入Problem失败");
         for (String tag : problemAddDTO.getTagList()) {
             ProblemTag problemTag = new ProblemTag();
 
@@ -89,7 +90,7 @@ public class ProblemServiceImpl extends ServiceImpl<ProblemMapper, Problem>
             row = problemTagMapper.insert(problemTag);
             if (row != 1) {
                 log.info("ProblemServiceImpl---->addProblem()---插入ProblemTag失败");
-                throw new StatusSystemErrorException("插入数据失败");
+                throw new StatusSystemErrorException("插入失败");
             }
         }
         return ResultUtils.success("插入成功");
@@ -137,7 +138,17 @@ public class ProblemServiceImpl extends ServiceImpl<ProblemMapper, Problem>
 
         Problem problem = problemMapper.selectOne(queryWrapper);
         ProblemVO problemVO = new ProblemVO();
+
+        String tagStr = problem.getTagList();
+        if (tagStr.startsWith("[") && tagStr.endsWith("]")) {
+            // 去除字符串的首尾字符
+            tagStr = tagStr.substring(1, tagStr.length() - 1);
+        }
+
+        List<String> tagList = Arrays.asList(tagStr.split(","));
+
         BeanUtils.copyProperties(problem, problemVO);
+        problemVO.setTagList(tagList);
         return ResultUtils.success(problemVO);
     }
 
