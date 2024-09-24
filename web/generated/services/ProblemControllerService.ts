@@ -1,16 +1,13 @@
-/* generated using openapi-typescript-codegen -- do not edit */
-/* istanbul ignore file */
-/* tslint:disable */
-/* eslint-disable */
-import type { BaseResponseIPageProblemTitleVO } from '../models/BaseResponseIPageProblemTitleVO';
-import type { BaseResponseListTagVO } from '../models/BaseResponseListTagVO';
-import type { BaseResponsePageProblemTitleVO } from '../models/BaseResponsePageProblemTitleVO';
-import type { BaseResponseProblemVO } from '../models/BaseResponseProblemVO';
-import type { BaseResponseString } from '../models/BaseResponseString';
-import type { ProblemAddDTO } from '../models/ProblemAddDTO';
-import type { CancelablePromise } from '../core/CancelablePromise';
-import { OpenAPI } from '../core/OpenAPI';
-import { request as __request } from '../core/request';
+import type {BaseResponseIPageProblemTitleVO} from '../models/BaseResponseIPageProblemTitleVO';
+import type {BaseResponseListTagVO} from '../models/BaseResponseListTagVO';
+import type {BaseResponsePageProblemTitleVO} from '../models/BaseResponsePageProblemTitleVO';
+import type {BaseResponseProblemVO} from '../models/BaseResponseProblemVO';
+import type {BaseResponseString} from '../models/BaseResponseString';
+import type {ProblemAddDTO} from '../models/ProblemAddDTO';
+import type {CancelablePromise} from '../core/CancelablePromise';
+import {OpenAPI} from '../core/OpenAPI';
+import {request as __request} from '../core/request';
+
 export class ProblemControllerService {
     /**
      * @param tagName
@@ -28,6 +25,7 @@ export class ProblemControllerService {
             },
         });
     }
+
     /**
      * @param requestBody
      * @returns BaseResponseString OK
@@ -43,6 +41,7 @@ export class ProblemControllerService {
             mediaType: 'application/json',
         });
     }
+
     /**
      * @param current
      * @param size
@@ -74,6 +73,7 @@ export class ProblemControllerService {
             },
         });
     }
+
     /**
      * @param current
      * @param size
@@ -96,6 +96,7 @@ export class ProblemControllerService {
             },
         });
     }
+
     /**
      * @param size
      * @param current
@@ -115,6 +116,7 @@ export class ProblemControllerService {
             },
         });
     }
+
     /**
      * @returns BaseResponseListTagVO OK
      * @throws ApiError
@@ -125,6 +127,7 @@ export class ProblemControllerService {
             url: '/problem/get-problemtaglist',
         });
     }
+
     /**
      * @param id
      * @returns BaseResponseProblemVO OK
