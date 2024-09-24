@@ -53,13 +53,14 @@
         <i class="el-icon-upload"></i>
         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
       </el-upload>
-      <a-button status="success" @click="addQuestion()">提交</a-button>
+      <a-button v-if="isUpdate===false" status="success" @click="addQuestion()">提交</a-button>
+      <a-button v-else status="success" @click="updateQuestion()">修改</a-button>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import {onBeforeMount, onMounted, ref} from "vue";
 import MdEditor from "@/components/MdEditor.vue";
 import { useRoute } from "vue-router";
 import { ElMessage, ElMessageBox } from "element-plus";
@@ -70,6 +71,7 @@ import { ProblemAddDTO } from "../../../generated/models/ProblemAddDTO";
 
 const route = useRoute();
 const userStore = useUserStore();
+const isUpdate = ref(false);
 const fileData = ref({
   pid: "hahah",
 });
@@ -124,6 +126,14 @@ const addQuestion = async () => {
     ElMessage.error("添加失败：" + result.message);
   }
 };
+const updateQuestion = async () => {
+  const result = await ProblemControllerService.updateProblem(form.value);
+  if (result.code === 0) {
+    ElMessage.success("修改成功");
+  } else {
+    ElMessage.error("修改失败：" + result.message);
+  }
+};
 
 const onContentMdchange = (v: string) => {
   form.value.description = v;
@@ -131,6 +141,10 @@ const onContentMdchange = (v: string) => {
 
 const loadData = async () => {
   const id = route.query.id;
+  const update = route.query.update;
+  if(update) {
+    isUpdate.value = true;
+  }
   if (!id) {
     return;
   }
@@ -142,7 +156,7 @@ const loadData = async () => {
   }
 };
 
-onMounted(() => {
+onBeforeMount(() => {
   loadData();
 });
 </script>
