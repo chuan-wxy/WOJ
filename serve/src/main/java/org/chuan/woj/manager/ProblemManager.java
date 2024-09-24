@@ -62,6 +62,12 @@ public class ProblemManager {
         this.validateTagList(problemAddDTO.getTagList());
     }
 
+    /**
+     * 检查tagList是否为空，tag的名字是否正常，tag是否存在
+     * @param tagList
+     * @throws StatusFailException
+     */
+
     public void validateTagList(List<String> tagList) throws StatusFailException {
         if (tagList.isEmpty()) {
             log.debug("ProblemServiceImpl---->addProblem()->ProblemManager.validateTagList---tagList为空");
