@@ -1,0 +1,31 @@
+package org.chuan.woj.manager;
+
+import lombok.extern.slf4j.Slf4j;
+import org.chuan.woj.exception.StatusFailException;
+import org.chuan.woj.pojo.dto.course.CourseAddDTO;
+import org.chuan.woj.pojo.dto.problem.ProblemAddDTO;
+import org.springframework.stereotype.Component;
+
+/**
+ * @Author: chuan-wxy
+ * @Date: 2024/9/25 17:33
+ * @Description:
+ */
+@Slf4j
+@Component
+public class CourseManager {
+    public void validateCourse(CourseAddDTO courseAddDTO) throws StatusFailException {
+        if (courseAddDTO == null) {
+            log.debug("CourseManager---->validateCourse()---courseAddDTO为空");
+            throw new StatusFailException("courseAddDTO为空");
+        }
+        String name = courseAddDTO.getName();
+        String description = courseAddDTO.getDescription();
+        if (name.isBlank()) {
+            throw new StatusFailException("name为空");
+        }
+        if (description.isBlank()) {
+            throw new StatusFailException("description为空");
+        }
+    }
+}
