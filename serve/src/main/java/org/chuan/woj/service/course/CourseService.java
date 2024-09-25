@@ -2,6 +2,9 @@ package org.chuan.woj.service.course;
 
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.chuan.woj.common.BaseResponse;
+import org.chuan.woj.exception.StatusFailException;
+import org.chuan.woj.pojo.dto.course.CourseAddDTO;
 import org.chuan.woj.pojo.entity.Course;
 
 /**
@@ -11,4 +14,5 @@ import org.chuan.woj.pojo.entity.Course;
 */
 public interface CourseService extends IService<Course> {
 
+    BaseResponse<String> addCourse(CourseAddDTO courseAddDTO) throws StatusFailException;
 }
