@@ -2,7 +2,7 @@
   <div id="courses">
     <div class="panel-body">
       <div class="coursesdefault">
-        <h2>AcKing在线活动</h2>
+        <h2>WOJ在线活动</h2>
       </div>
       <a-list class="dataBox">
         <a-list-item
@@ -63,7 +63,12 @@
 .panel-body {
   padding: 15px;
 }
-。dataBox {
+
+.dataBox {
   color: var(--theme-color);
+}
+
+h2 {
+  text-align: center;
 }
 </style>
