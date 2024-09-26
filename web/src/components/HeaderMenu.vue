@@ -101,7 +101,7 @@ const userBar = ref([
   },
   {
     name: "课程",
-    path: "/activity",
+    path: "/course",
   },
   {
     name: "题库",
