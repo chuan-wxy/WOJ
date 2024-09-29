@@ -45,12 +45,12 @@ const barData = reactive([
         title: "增删改查",
         child: [
           {
-            title: "测试",
-            index: "/admin/test",
+            title: "用户列表",
+            index: "/admin/userlist",
           },
           {
-            title: "添加用户",
-            index: "/admin/tianjia",
+            title: "添加管理",
+            index: "/admin/addmanager",
           },
         ],
       },
@@ -64,12 +64,8 @@ const barData = reactive([
         title: "增删改查",
         child: [
           {
-            title: "查找题目",
-            index: "1-1",
-          },
-          {
             title: "新建课程",
-            index: "1-1",
+            index: "/admin/addcourse",
           },
           {
             title: "添加题目",
