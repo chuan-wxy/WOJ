@@ -27,6 +27,7 @@ import { useRoute } from "vue-router";
 import { ProblemControllerService } from "../../../generated/services/ProblemControllerService";
 import { ElMessage } from "element-plus";
 import CodeEditor from "@/components/CodeEditor.vue";
+import { Viewer } from "@bytemd/vue-next";
 import { ProblemSubmitControllerService } from "../../../generated/services/ProblemSubmitControllerService";
 
 const route = useRoute();
@@ -49,7 +50,6 @@ const problemData = ref({
   auth: 0,
 });
 
-
 const submitData = ref({
   language: "c++",
   code: "",
@@ -57,7 +57,10 @@ const submitData = ref({
 });
 
 const submit = async () => {
-  if(codeEditor.value.codeEditorData === null || codeEditor.value.codeEditorData === ""){
+  if (
+    codeEditor.value.codeEditorData === null ||
+    codeEditor.value.codeEditorData === ""
+  ) {
     ElMessage.error("代码不能为空");
     return;
   }
