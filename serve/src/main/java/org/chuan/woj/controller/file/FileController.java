@@ -27,7 +27,7 @@ import java.io.IOException;
 @Tag(name = "UserController")
 public class FileController {
 
-    @Value("${codefile.judgecasepath}")
+    @Value("${path.code.judgecase-path}")
     String judgeCasePath;
 
     @PostMapping("/upload-avatar")

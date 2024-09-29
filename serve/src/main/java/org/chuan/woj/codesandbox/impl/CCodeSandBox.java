@@ -36,30 +36,28 @@ public class CCodeSandBox implements CodeSandbox {
 
     private static final List<String> blackList = Arrays.asList("File", "exec");
 
-    @Value("${codefile.judgecasepath}")
+    @Value("${path.code.judgecase-path}")
     String judgeCasePath;
 
-    static String staticJudgeCasePath;
+    @Value("${path.code.submit-code-path}")
+    String submitCodePath;
 
+    static String staticJudgeCasePath;
+    static String staticSubmitCodePath;
     @PostConstruct
     public void init() {
         staticJudgeCasePath = judgeCasePath;
+        staticSubmitCodePath = submitCodePath;
     }
 
     @Override
     public JudgeInfo executeCode(ExecuteCodeRequest executeCodeRequest, Problem problem) throws IOException, InterruptedException, StatusFailException {
-        //debug
-        System.out.println("cCodeSandBox c++沙箱");
-        System.out.println(staticJudgeCasePath);
-
         long needTime = problem.getTimeLimit();
         long questionId = problem.getId();
         // 写文件
         String code = executeCodeRequest.getCode();
-        String dir = System.getProperty("user.dir");
         String UUID = java.util.UUID.randomUUID().toString();
-        String parentPath = dir + File.separator + "questionCode" + File.separator + UUID;
-        ;
+        String parentPath = staticSubmitCodePath + File.separator + UUID;
         String path = parentPath + File.separator + "Main.cpp";
 
         File file = FileUtil.writeString(code, path, StandardCharsets.UTF_8);
