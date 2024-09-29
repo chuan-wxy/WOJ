@@ -1,13 +1,19 @@
 # redis配置
-redis-host: ${REDIS_HOST:39.106.12.42}
+redis-host: ${REDIS_HOST:127.0.0.1}
 redis-port: ${REDIS_PORT:6379}
 redis-password: ${REDIS_PASSWORD:root@123456}
 
 # mysql配置
-mysql-host: ${MYSQL_HOST:39.106.12.42}
+mysql-host: ${MYSQL_HOST:127.0.0.1}
 mysql-port: ${MYSQL_PORT:3306}
 mysql-username: ${MYSQL_USERNAME:root}
 mysql-password: ${MYSQL_ROOT_PASSWORD:2W0x0y40706@}
+
+submit-code-path: ${SUBMIT_CODE_PATH:"/home/serve/submitcode"}
+judgecase-path: ${JUDGECASE_PATH:"/home/serve/judgecase"}
+user-avatar-path: ${USER_AVATAR_PATH:"/home/serve/avatar/user"}
+course-avatar-path: ${COURSE_AVATAR_PATH:"/home/serve/avatar/course"}
+
 
 spring:
   # 数据库配置
@@ -70,6 +76,11 @@ logging:
     org.springframework.jdbc.support.JdbcTransactionManager: debug
 
 #自定义代码代码沙箱的输出地址，默认为false，使用项目目录下的questionCode作为文件的输出地址，开启后将使用指定的地址
-codefile:
-  judgecasepath: "D:\\Desktop\\WOJ\\NEW\\WOJ\\WOJ\\judgeCase"
+path:
+  code:
+    submit-code-path: ${submit-code-path}
+    judgecase-path: ${judgecase-path}
+  avatar:
+    user-avatar-path: ${user-avatar-path}
+    course-avatar-path: "${course-avatar-path}
 
