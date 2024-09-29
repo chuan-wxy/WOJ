@@ -1,5 +1,5 @@
 <template>
-  <div class="activitydefault">
+  <div id="courses">
     <div class="panel-body">
       <h2>AcKing在线活动</h2>
     </div>
@@ -51,14 +51,18 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.activitydefault {
-  background: white;
+#courses {
+  height: 800px;
   width: 75%;
   margin: auto;
+  justify-content: center;
 }
 
 .panel-body {
   padding: 15px;
+}
+.dataBox {
+  color: var(--theme-color);
 }
 
 h2 {
