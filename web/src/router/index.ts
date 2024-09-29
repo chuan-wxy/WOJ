@@ -12,6 +12,12 @@ import ProblemContentView from "@/views/question/ProblemContentView.vue";
 import AddProblemView from "@/views/admin/AddProblemView.vue";
 import PERMISSION_ENUM from "@/access/permissionEnum";
 import CodeEditor from "@/components/CodeEditor.vue";
+import UserListView from "@/views/admin/UserListView.vue";
+import AddManagerView from "@/views/admin/AddManagerView.vue";
+import AddCourseView from "@/views/admin/AddCourseView.vue";
+import CoursesView from "@/views/activity/CourseView.vue";
+import ActivityDefaultView from "@/views/activity/ActivityDefaultView.vue";
+import CourseView from "@/views/activity/CourseView.vue";
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
@@ -41,14 +47,24 @@ const router = createRouter({
           },
           children: [
             {
-              path: "/admin/test",
-              name: "测试",
-              component: TestView,
+              path: "/admin/userlist",
+              name: "用户列表",
+              component: UserListView,
+            },
+            {
+              path: "/admin/addmanager",
+              name: "添加管理",
+              component: AddManagerView,
             },
             {
               path: "/admin/addproblem",
               name: "新增题目",
               component: AddProblemView,
+            },
+            {
+              path: "/admin/addcourse",
+              name: "新建课程",
+              component: AddCourseView,
             },
           ],
         },
@@ -77,6 +93,11 @@ const router = createRouter({
           meta: {
             isHide: true,
           },
+        },
+        {
+          path: "/course",
+          name: "课程",
+          component: CourseView,
         },
       ],
     },
@@ -152,7 +173,7 @@ router.beforeEach((to, from, next) => {
 
   if (to.path === "/home") {
     commonStore.setActiveIndex(0);
-  } else if (to.path === "/activity") {
+  } else if (to.path === "/course") {
     commonStore.setActiveIndex(1);
   } else if (to.path === "/problem") {
     commonStore.setActiveIndex(2);
