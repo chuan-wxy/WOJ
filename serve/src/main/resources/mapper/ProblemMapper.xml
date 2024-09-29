@@ -9,7 +9,7 @@
             <result property="problemId" column="problemId" jdbcType="VARCHAR"/>
             <result property="title" column="title" jdbcType="VARCHAR"/>
             <result property="author" column="author" jdbcType="VARCHAR"/>
-            <result property="tag" column="tag" jdbcType="VARCHAR"/>
+            <result property="tagList" column="tagList" jdbcType="VARCHAR"/>
             <result property="timeLimit" column="timeLimit" jdbcType="INTEGER"/>
             <result property="memoryLimit" column="memoryLimit" jdbcType="INTEGER"/>
             <result property="stackLimit" column="stackLimit" jdbcType="INTEGER"/>
