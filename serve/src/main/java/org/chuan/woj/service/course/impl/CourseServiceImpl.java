@@ -15,6 +15,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
 * @author lenovo
 * @description 针对表【course】的数据库操作Service实现
@@ -49,6 +51,27 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course>
         } else {
             return ResultUtils.error("添加失败");
         }
+    }
+
+    @Override
+    public BaseResponse<List<Course>> getCourseByLevel(Integer level) {
+        if(level == null) {
+            return ResultUtils.error("level不能为空");
+        }
+        if(level <= 0) {
+            return null;
+        }
+        QueryWrapper queryWrapper = new QueryWrapper<Course>();
+        queryWrapper.eq("level",level-1);
+
+        List courseList = courseMapper.selectList(queryWrapper);
+
+        return ResultUtils.success(courseList);
+    }
+
+    @Override
+    public BaseResponse<List<Course>> getCourse() {
+        return null;
     }
 }
 

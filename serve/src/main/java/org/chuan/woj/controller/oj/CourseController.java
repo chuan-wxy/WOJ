@@ -8,12 +8,12 @@ import org.chuan.woj.constant.UserConstant;
 import org.chuan.woj.exception.StatusFailException;
 import org.chuan.woj.exception.StatusSystemErrorException;
 import org.chuan.woj.pojo.dto.course.CourseAddDTO;
+import org.chuan.woj.pojo.entity.Course;
 import org.chuan.woj.service.course.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @Author: chuan-wxy
@@ -35,7 +35,24 @@ public class CourseController {
      */
     @PostMapping("/add")
     @AuthCheck(mustRole = UserConstant.AMDIN)
-    public BaseResponse<String> addCourse(@RequestBody CourseAddDTO courseAddDTO) {
+    public BaseResponse<String> addCourse(@RequestBody CourseAddDTO courseAddDTO) throws StatusFailException {
         return courseService.addCourse(courseAddDTO);
+    }
+
+    /**
+     * 新增课程时，查找其上级课程
+     * @param level
+     * @return
+     * @throws StatusFailException
+     */
+    @GetMapping("/get-course-by-level")
+    @AuthCheck(mustRole = UserConstant.AMDIN)
+    public BaseResponse<List<Course>> getCourseByLevel(Integer level) {
+        return courseService.getCourseByLevel(level);
+    }
+
+    @GetMapping("/get-course")
+    public BaseResponse<List<Course>> getCourse() {
+        return courseService.getCourse();
     }
 }
