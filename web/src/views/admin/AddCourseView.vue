@@ -33,9 +33,9 @@
           class="upload-demo"
           drag
           headers="POST"
-          action="process.env.VUE_APP_PROBLEM_FILE_UPLOAD_PATH"
+          :action="courseAvatarUploadPath"
           multiple
-          :data="fileData"
+          :data="avatarData"
         >
           <i class="el-icon-upload"></i>
           <div class="el-upload__text">将图片上传至此，或<em>点击上传</em></div>
@@ -55,8 +55,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import { CourseAddDTO } from "../../../generated/models/CourseAddDTO";
+import { onMounted, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import { useUserStore } from "@/store/UserStore";
 import { ElMessage } from "element-plus";
@@ -65,9 +64,11 @@ import { CourseControllerService } from "../../../generated/services/CourseContr
 const route = useRoute();
 const userStore = useUserStore();
 const isUpdate = ref(false);
-const fileData = ref({
-  pid: "hahah",
+const avatarData = ref({
+  courseName: "",
 });
+
+const courseAvatarUploadPath = ref("");
 
 const options = [
   {
@@ -89,7 +90,14 @@ const form = ref({
   level: 0,
   description: "",
   avatar: "",
-} as CourseAddDTO);
+});
+
+watch(
+  () => form.value.name,
+  (newValue) => {
+    avatarData.value.courseName = newValue as string;
+  }
+);
 
 const parent = ref();
 const parentList = ref();
@@ -120,6 +128,10 @@ const updateCourse = async () => {
     ElMessage.error("修改失败：" + res.message);
   }
 };
+onMounted(() => {
+  courseAvatarUploadPath.value = process.env
+    .VUE_APP_COURSE_AVATAR_UPLOAD_PATH as string;
+});
 </script>
 
 <style scoped>
