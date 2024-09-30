@@ -35,7 +35,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course>
     public BaseResponse<String> addCourse(CourseAddDTO courseAddDTO) throws StatusFailException {
 
         courseManager.validateCourse(courseAddDTO);
-
+        // 课程查重
         String name = courseAddDTO.getName();
         QueryWrapper<Course> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("name",name);
@@ -43,6 +43,15 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course>
         if(course != null) {
             throw new StatusFailException("课程名称重复");
         }
+        // 检查父节点是否存在
+        Integer pid = courseAddDTO.getPid();
+        QueryWrapper<Course> queryWrapper1 = new QueryWrapper<>();
+        queryWrapper1.eq("id",pid);
+        Course course1 = this.getOne(queryWrapper1);
+        if(course1 == null) {
+            throw new StatusFailException("没有改父级课程");
+        }
+
         Course newCourse = new Course();
         BeanUtils.copyProperties(courseAddDTO,newCourse);
         boolean save = this.save(newCourse);
