@@ -45,11 +45,13 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course>
         }
         // 检查父节点是否存在
         Integer pid = courseAddDTO.getPid();
-        QueryWrapper<Course> queryWrapper1 = new QueryWrapper<>();
-        queryWrapper1.eq("id",pid);
-        Course course1 = this.getOne(queryWrapper1);
-        if(course1 == null) {
-            throw new StatusFailException("没有改父级课程");
+        if(pid!=null && pid!=0) {
+            QueryWrapper<Course> queryWrapper1 = new QueryWrapper<>();
+            queryWrapper1.eq("id",pid);
+            Course course1 = this.getOne(queryWrapper1);
+            if(course1 == null) {
+                throw new StatusFailException("没有改父级课程");
+            }
         }
 
         Course newCourse = new Course();

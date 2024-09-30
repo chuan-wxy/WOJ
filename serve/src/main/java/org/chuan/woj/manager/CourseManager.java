@@ -35,11 +35,8 @@ public class CourseManager {
         if(level <= 0 || level >= 4) {
             throw new StatusFailException("参数level非法");
         }
-        if (pid == null) {
-            throw new StatusFailException("pid为空");
-        }
-        if(pid < 0) {
-            throw new StatusFailException("参数level非法");
+        if(pid != null && pid < 0) {
+            throw new StatusFailException("参数pid非法");
         }
     }
 }
