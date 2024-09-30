@@ -16,16 +16,23 @@ import org.springframework.stereotype.Component;
 public class CourseManager {
     public void validateCourse(CourseAddDTO courseAddDTO) throws StatusFailException {
         if (courseAddDTO == null) {
-            log.debug("CourseManager---->validateCourse()---courseAddDTO为空");
+            log.error("CourseManager---->validateCourse()---courseAddDTO为空");
             throw new StatusFailException("courseAddDTO为空");
         }
         String name = courseAddDTO.getName();
         String description = courseAddDTO.getDescription();
+        Integer level = courseAddDTO.getLevel();
         if (name.isBlank()) {
             throw new StatusFailException("name为空");
         }
         if (description.isBlank()) {
             throw new StatusFailException("description为空");
+        }
+        if (level == null) {
+            throw new StatusFailException("level为空");
+        }
+        if(level <= 0 || level >= 4) {
+            throw new StatusFailException("参数level非法");
         }
     }
 }
