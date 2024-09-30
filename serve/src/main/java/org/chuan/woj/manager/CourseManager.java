@@ -22,7 +22,7 @@ public class CourseManager {
         String name = courseAddDTO.getName();
         String description = courseAddDTO.getDescription();
         Integer level = courseAddDTO.getLevel();
-        Integer pid = courseAddDTO.getPid();
+        Long pid = courseAddDTO.getPid();
         if (name.isBlank()) {
             throw new StatusFailException("name为空");
         }
@@ -37,6 +37,9 @@ public class CourseManager {
         }
         if(pid != null && pid < 0) {
             throw new StatusFailException("参数pid非法");
+        }
+        if(pid != null && level != 1) {
+            throw new StatusFailException("非第一层，请指定父节点");
         }
     }
 }
