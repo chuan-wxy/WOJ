@@ -23,6 +23,11 @@ public class Course implements Serializable {
     private Long id;
 
     /**
+     * 父节点id
+     */
+    private Long pid;
+
+    /**
      * 名称
      */
     private String name;
