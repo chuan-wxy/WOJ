@@ -204,7 +204,6 @@ const filter = ref({
 
 const getQuestion = async () => {
   finished.value = false;
-  console.log("get" + current.value);
   const res = await ProblemControllerService.searchProblemTitleTwo(
     current.value,
     size.value,
@@ -214,7 +213,6 @@ const getQuestion = async () => {
     filter.value.title as any
   );
   if (res.code === 0) {
-    console.log(res.data);
     total.value = res.data?.total;
     problemList.value = res.data?.records;
     finished.value = true;
