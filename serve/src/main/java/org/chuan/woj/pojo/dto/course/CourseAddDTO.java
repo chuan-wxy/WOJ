@@ -19,7 +19,7 @@ public class CourseAddDTO implements Serializable{
     /**
      * 父节点id
      */
-    private Integer pid;
+    private Long pid;
 
     /**
      * 层级
