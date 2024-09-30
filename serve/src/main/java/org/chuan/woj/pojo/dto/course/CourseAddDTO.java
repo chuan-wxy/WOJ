@@ -17,6 +17,11 @@ public class CourseAddDTO implements Serializable{
     private String name;
 
     /**
+     * 父节点id
+     */
+    private Integer pid;
+
+    /**
      * 层级
      */
     private Integer level;
