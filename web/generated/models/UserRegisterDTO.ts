@@ -3,9 +3,8 @@
 /* tslint:disable */
 /* eslint-disable */
 export type UserRegisterDTO = {
-    userAccount?: string;
-    userPassword?: string;
-    rePassword?: string;
-    captcha?: string;
+  userAccount?: string;
+  userPassword?: string;
+  rePassword?: string;
+  captcha?: string;
 };
-

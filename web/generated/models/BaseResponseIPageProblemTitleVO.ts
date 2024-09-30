@@ -2,10 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { IPageProblemTitleVO } from './IPageProblemTitleVO';
+import type { IPageProblemTitleVO } from "./IPageProblemTitleVO";
 export type BaseResponseIPageProblemTitleVO = {
-    code?: number;
-    message?: string;
-    data?: IPageProblemTitleVO;
+  code?: number;
+  message?: string;
+  data?: IPageProblemTitleVO;
 };
-

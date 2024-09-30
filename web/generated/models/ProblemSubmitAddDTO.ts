@@ -3,9 +3,8 @@
 /* tslint:disable */
 /* eslint-disable */
 export type ProblemSubmitAddDTO = {
-    language?: string;
-    code?: string;
-    pid?: number;
-    uid?: string;
+  language?: string;
+  code?: string;
+  pid?: number;
+  uid?: string;
 };
-

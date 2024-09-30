@@ -1,10 +1,13 @@
+/* generated using openapi-typescript-codegen -- do not edit */
+/* istanbul ignore file */
+/* tslint:disable */
+/* eslint-disable */
 import type { BaseResponseListUserVO } from "../models/BaseResponseListUserVO";
 import type { BaseResponseUserVO } from "../models/BaseResponseUserVO";
 import type { BaseResponseVoid } from "../models/BaseResponseVoid";
 import type { CancelablePromise } from "../core/CancelablePromise";
 import { OpenAPI } from "../core/OpenAPI";
 import { request as __request } from "../core/request";
-
 export class AdminControllerService {
   /**
    * @param gender
@@ -22,7 +25,6 @@ export class AdminControllerService {
       },
     });
   }
-
   /**
    * @param uuid
    * @returns BaseResponseUserVO OK
@@ -39,7 +41,6 @@ export class AdminControllerService {
       },
     });
   }
-
   /**
    * @param uuid
    * @returns BaseResponseVoid OK

@@ -3,9 +3,9 @@
 /* tslint:disable */
 /* eslint-disable */
 export type CourseAddDTO = {
-    name?: string;
-    level?: number;
-    description?: string;
-    avatar?: string;
+  name?: string;
+  pid?: number;
+  level?: number;
+  description?: string;
+  avatar?: string;
 };
-

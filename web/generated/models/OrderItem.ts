@@ -3,7 +3,6 @@
 /* tslint:disable */
 /* eslint-disable */
 export type OrderItem = {
-    column?: string;
-    asc?: boolean;
+  column?: string;
+  asc?: boolean;
 };
-

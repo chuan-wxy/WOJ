@@ -2,12 +2,11 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { ProblemTitleVO } from './ProblemTitleVO';
+import type { ProblemTitleVO } from "./ProblemTitleVO";
 export type IPageProblemTitleVO = {
-    size?: number;
-    current?: number;
-    total?: number;
-    records?: Array<ProblemTitleVO>;
-    pages?: number;
+  size?: number;
+  pages?: number;
+  total?: number;
+  current?: number;
+  records?: Array<ProblemTitleVO>;
 };
-

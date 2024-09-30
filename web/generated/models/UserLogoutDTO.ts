@@ -3,7 +3,6 @@
 /* tslint:disable */
 /* eslint-disable */
 export type UserLogoutDTO = {
-    userAccount?: string;
-    code?: string;
+  userAccount?: string;
+  code?: string;
 };
-

@@ -1,10 +1,13 @@
+/* generated using openapi-typescript-codegen -- do not edit */
+/* istanbul ignore file */
+/* tslint:disable */
+/* eslint-disable */
 import type { BaseResponseListCourse } from "../models/BaseResponseListCourse";
 import type { BaseResponseString } from "../models/BaseResponseString";
 import type { CourseAddDTO } from "../models/CourseAddDTO";
 import type { CancelablePromise } from "../core/CancelablePromise";
 import { OpenAPI } from "../core/OpenAPI";
 import { request as __request } from "../core/request";
-
 export class CourseControllerService {
   /**
    * @param requestBody
@@ -21,7 +24,6 @@ export class CourseControllerService {
       mediaType: "application/json",
     });
   }
-
   /**
    * @returns BaseResponseListCourse OK
    * @throws ApiError
@@ -32,7 +34,6 @@ export class CourseControllerService {
       url: "/course/get-course",
     });
   }
-
   /**
    * @param level
    * @returns BaseResponseListCourse OK

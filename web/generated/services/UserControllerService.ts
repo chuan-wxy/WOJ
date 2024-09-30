@@ -1,5 +1,10 @@
+/* generated using openapi-typescript-codegen -- do not edit */
+/* istanbul ignore file */
+/* tslint:disable */
+/* eslint-disable */
 import type { BaseResponseBoolean } from "../models/BaseResponseBoolean";
 import type { BaseResponseListString } from "../models/BaseResponseListString";
+import type { BaseResponseString } from "../models/BaseResponseString";
 import type { BaseResponseUserLoginVO } from "../models/BaseResponseUserLoginVO";
 import type { BaseResponseVoid } from "../models/BaseResponseVoid";
 import type { UserLoginDTO } from "../models/UserLoginDTO";
@@ -9,7 +14,6 @@ import type { UserRegisterDTO } from "../models/UserRegisterDTO";
 import type { CancelablePromise } from "../core/CancelablePromise";
 import { OpenAPI } from "../core/OpenAPI";
 import { request as __request } from "../core/request";
-
 export class UserControllerService {
   /**
    * @param requestBody
@@ -26,7 +30,6 @@ export class UserControllerService {
       mediaType: "application/json",
     });
   }
-
   /**
    * @param requestBody
    * @returns BaseResponseVoid OK
@@ -42,7 +45,6 @@ export class UserControllerService {
       mediaType: "application/json",
     });
   }
-
   /**
    * @param requestBody
    * @returns BaseResponseVoid OK
@@ -58,7 +60,6 @@ export class UserControllerService {
       mediaType: "application/json",
     });
   }
-
   /**
    * @param requestBody
    * @returns BaseResponseVoid OK
@@ -74,7 +75,6 @@ export class UserControllerService {
       mediaType: "application/json",
     });
   }
-
   /**
    * @param requestBody
    * @returns BaseResponseUserLoginVO OK
@@ -90,7 +90,6 @@ export class UserControllerService {
       mediaType: "application/json",
     });
   }
-
   /**
    * @param userAccount
    * @returns BaseResponseListString OK
@@ -107,7 +106,6 @@ export class UserControllerService {
       },
     });
   }
-
   /**
    * @param requestBody
    * @returns BaseResponseVoid OK
@@ -123,7 +121,6 @@ export class UserControllerService {
       mediaType: "application/json",
     });
   }
-
   /**
    * @returns BaseResponseUserLoginVO OK
    * @throws ApiError
@@ -134,15 +131,14 @@ export class UserControllerService {
       url: "/user/get-loginuser",
     });
   }
-
   /**
    * @param email
-   * @returns BaseResponseVoid OK
+   * @returns BaseResponseString OK
    * @throws ApiError
    */
   public static getRegisterCode(
     email: string
-  ): CancelablePromise<BaseResponseVoid> {
+  ): CancelablePromise<BaseResponseString> {
     return __request(OpenAPI, {
       method: "GET",
       url: "/user/get-register-code",
@@ -151,7 +147,6 @@ export class UserControllerService {
       },
     });
   }
-
   /**
    * @param jwt
    * @returns BaseResponseBoolean OK
