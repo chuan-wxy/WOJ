@@ -72,15 +72,15 @@ const courseAvatarUploadPath = ref("");
 
 const options = [
   {
-    value: 0,
+    value: 1,
     label: "第一层",
   },
   {
-    value: 1,
+    value: 2,
     label: "第二层",
   },
   {
-    value: 2,
+    value: 3,
     label: "第三层",
   },
 ];
