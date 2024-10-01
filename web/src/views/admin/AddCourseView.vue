@@ -32,9 +32,8 @@
         <el-upload
           class="upload-demo"
           drag
-          headers="POST"
           :action="courseAvatarUploadPath"
-          multiple
+          :on-success="handleAvatarSuccess"
           :data="avatarData"
         >
           <i class="el-icon-upload"></i>
@@ -56,20 +55,20 @@
 
 <script setup lang="ts">
 import { onMounted, ref, watch } from "vue";
-import { useRoute } from "vue-router";
-import { useUserStore } from "@/store/UserStore";
 import { ElMessage } from "element-plus";
 import { CourseControllerService } from "../../../generated/services/CourseControllerService";
+import { CourseAddDTO } from "../../../generated";
 
-const route = useRoute();
-const userStore = useUserStore();
+const parent = ref();
+const parentList = ref();
+
 const isUpdate = ref(false);
 const avatarData = ref({
   courseName: "",
 });
 
 const courseAvatarUploadPath = ref("");
-
+// 层级数组
 const options = [
   {
     value: 1,
@@ -84,13 +83,22 @@ const options = [
     label: "第三层",
   },
 ];
-
+// 新建课程请求体
 const form = ref({
   name: "",
+  pid: 0,
   level: 0,
   description: "",
-  avatar: "",
-});
+} as CourseAddDTO);
+
+// 图片上传成功，回调函数
+const handleAvatarSuccess = (response) => {
+  if (response.code === 0) {
+    form.value.avatar = response.data;
+  } else {
+    ElMessage.error("上传失败：{}", response.message);
+  }
+};
 
 watch(
   () => form.value.name,
@@ -99,8 +107,6 @@ watch(
   }
 );
 
-const parent = ref();
-const parentList = ref();
 const getParent = async () => {
   parentList.value = null;
   parent.value = null;
@@ -109,10 +115,13 @@ const getParent = async () => {
   );
   if (res.code === 0) {
     parentList.value = res.data;
+  } else {
+    ElMessage.error(res.message);
   }
 };
 
 const onSubmit = async () => {
+  form.value.pid = parent.value || 0;
   const res = await CourseControllerService.addCourse(form.value);
   if (res.code === 0) {
     ElMessage.success("添加成功");
