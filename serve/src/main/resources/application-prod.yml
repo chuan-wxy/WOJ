@@ -7,12 +7,13 @@ redis-password: ${REDIS_PASSWORD:root@123456}
 mysql-host: ${MYSQL_HOST:127.0.0.1}
 mysql-port: ${MYSQL_PORT:3306}
 mysql-username: ${MYSQL_USERNAME:root}
-mysql-password: ${MYSQL_ROOT_PASSWORD:2W0x0y40706@}
+mysql-password: ${MYSQL_PASSWORD:2W0x0y40706@}
 
-submit-code-path: ${SUBMIT_CODE_PATH:"/home/serve/submitcode"}
-judgecase-path: ${JUDGECASE_PATH:"/home/serve/judgecase"}
-user-avatar-path: ${USER_AVATAR_PATH:"/home/serve/avatar/user"}
-course-avatar-path: ${COURSE_AVATAR_PATH:"/home/serve/avatar/course"}
+submit-code-path: ${SUBMIT_CODE_PATH:/usr/local/nginx/html/submitcode}
+judgecase-path: ${JUDGECASE_PATH:/usr/local/nginx/html/judgecase}
+# 图像
+user-avatar-path: ${USER_AVATAR_PATH:/usr/local/nginx/html/avatar/user}
+course-avatar-path: ${COURSE_AVATAR_PATH:/usr/local/nginx/html/avatar/course}
 
 
 spring:
@@ -82,5 +83,5 @@ path:
     judgecase-path: ${judgecase-path}
   avatar:
     user-avatar-path: ${user-avatar-path}
-    course-avatar-path: "${course-avatar-path}
+    course-avatar-path: ${course-avatar-path}
 
