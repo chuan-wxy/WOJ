@@ -25,7 +25,6 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/amdin")
-@Tag(name = "AdminController")
 public class AdminController {
     @Autowired
     UserService userService;
