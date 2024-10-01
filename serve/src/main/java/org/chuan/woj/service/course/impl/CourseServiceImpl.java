@@ -44,7 +44,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course>
             throw new StatusFailException("课程名称重复");
         }
         // 检查父节点是否存在
-        Integer pid = courseAddDTO.getPid();
+        Long pid = courseAddDTO.getPid();
         if(pid!=null && pid!=0) {
             QueryWrapper<Course> queryWrapper1 = new QueryWrapper<>();
             queryWrapper1.eq("id",pid);
