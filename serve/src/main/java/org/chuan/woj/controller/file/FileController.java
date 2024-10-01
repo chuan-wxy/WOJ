@@ -21,11 +21,9 @@ import java.io.IOException;
  * @Date: 2024/8/18 9:02
  * @Description:
  */
-
+@Slf4j
 @RestController
 @RequestMapping("/file")
-@Slf4j
-@Tag(name = "UserController")
 public class FileController {
 
     @Value("${path.code.judgecase-path}")
@@ -58,21 +56,21 @@ public class FileController {
     /**
      * 上传课程头像接口
      * @param file
-     * @param name
+     * @param courseName
      * @return
      * @throws StatusSystemErrorException
      */
 
     @PostMapping("/upload-course-avatar")
-    public BaseResponse<String> uploadCourseAvatar(MultipartFile file, String name) throws StatusSystemErrorException {
+    public BaseResponse<String> uploadCourseAvatar(MultipartFile file, String courseName) throws StatusSystemErrorException {
         String originFileName = file.getOriginalFilename();
-        String dirPath = courseAvatarPath + File.separator + name;
+        String dirPath = courseAvatarPath + File.separator + courseName;
 
         File dir = new File(dirPath);
-
         if (!dir.exists()) {
             boolean success = dir.mkdirs();
             if (!success) {
+
                 log.error("无法创建目录: {}", dirPath);
                 throw new StatusSystemErrorException("目录创建失败");
             }
@@ -80,11 +78,10 @@ public class FileController {
 
         String filePath = dirPath + File.separator + originFileName;
         File courseAvatar = new File(filePath);
-
         try {
             file.transferTo(courseAvatar);
             log.info("课程图片已成功保存至: {}", filePath);
-            return ResultUtils.success("保存成功");
+            return ResultUtils.success(filePath);
         } catch (IOException e) {
             log.error("文件保存失败: {}", e.getMessage());
             return ResultUtils.error("保存失败，错误信息: " + e.getMessage());
