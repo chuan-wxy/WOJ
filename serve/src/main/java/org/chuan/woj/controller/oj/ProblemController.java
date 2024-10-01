@@ -2,6 +2,7 @@ package org.chuan.woj.controller.oj;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.chuan.woj.annotation.AuthCheck;
 import org.chuan.woj.common.BaseResponse;
@@ -33,7 +34,6 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/problem")
-@io.swagger.v3.oas.annotations.tags.Tag(name = "ProblemController")
 public class ProblemController {
     @Autowired
     private ProblemService problemService;
