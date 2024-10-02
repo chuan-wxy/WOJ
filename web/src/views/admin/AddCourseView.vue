@@ -121,7 +121,7 @@ const getParent = async () => {
 };
 
 const onSubmit = async () => {
-  form.value.pid = parent.value || 0;
+  form.value.pid = parent.value;
   const res = await CourseControllerService.addCourse(form.value);
   if (res.code === 0) {
     ElMessage.success("添加成功");
