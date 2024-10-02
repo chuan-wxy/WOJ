@@ -2,9 +2,10 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { Course } from "./Course";
+import type { Course } from './Course';
 export type BaseResponseListCourse = {
-  code?: number;
-  message?: string;
-  data?: Array<Course>;
+    code?: number;
+    message?: string;
+    data?: Array<Course>;
 };
+

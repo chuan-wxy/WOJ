@@ -1,13 +1,11 @@
-/* generated using openapi-typescript-codegen -- do not edit */
-/* istanbul ignore file */
-/* tslint:disable */
-/* eslint-disable */
 import type { BaseResponseListCourse } from "../models/BaseResponseListCourse";
+import type { BaseResponseMapIntegerCategory } from "../models/BaseResponseMapIntegerCategory";
 import type { BaseResponseString } from "../models/BaseResponseString";
 import type { CourseAddDTO } from "../models/CourseAddDTO";
 import type { CancelablePromise } from "../core/CancelablePromise";
 import { OpenAPI } from "../core/OpenAPI";
 import { request as __request } from "../core/request";
+
 export class CourseControllerService {
   /**
    * @param requestBody
@@ -25,13 +23,39 @@ export class CourseControllerService {
     });
   }
   /**
+   * @param id
+   * @returns BaseResponseMapIntegerCategory OK
+   * @throws ApiError
+   */
+  public static getSecond(
+    id: number
+  ): CancelablePromise<BaseResponseMapIntegerCategory> {
+    return __request(OpenAPI, {
+      method: "GET",
+      url: "/course/get-second",
+      query: {
+        id: id,
+      },
+    });
+  }
+  /**
    * @returns BaseResponseListCourse OK
    * @throws ApiError
    */
-  public static getCourse(): CancelablePromise<BaseResponseListCourse> {
+  public static getFirst(): CancelablePromise<BaseResponseListCourse> {
     return __request(OpenAPI, {
       method: "GET",
-      url: "/course/get-course",
+      url: "/course/get-first",
+    });
+  }
+  /**
+   * @returns BaseResponseMapIntegerCategory OK
+   * @throws ApiError
+   */
+  public static getCourseList(): CancelablePromise<BaseResponseMapIntegerCategory> {
+    return __request(OpenAPI, {
+      method: "GET",
+      url: "/course/get-courseList",
     });
   }
   /**

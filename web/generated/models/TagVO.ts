@@ -3,5 +3,6 @@
 /* tslint:disable */
 /* eslint-disable */
 export type TagVO = {
-  name?: string;
+    name?: string;
 };
+

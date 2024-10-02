@@ -2,12 +2,12 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type ProblemTitleVO = {
+export type Category = {
     id?: number;
-    problemId?: string;
-    title?: string;
-    tagList?: Array<string>;
-    source?: string;
-    difficulty?: number;
+    pid?: number;
+    avatar?: string;
+    description?: string;
+    name?: string;
+    children?: Array<Category>;
 };
 

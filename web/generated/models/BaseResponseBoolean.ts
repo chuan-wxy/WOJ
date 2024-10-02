@@ -3,7 +3,8 @@
 /* tslint:disable */
 /* eslint-disable */
 export type BaseResponseBoolean = {
-  code?: number;
-  message?: string;
-  data?: boolean;
+    code?: number;
+    message?: string;
+    data?: boolean;
 };
+

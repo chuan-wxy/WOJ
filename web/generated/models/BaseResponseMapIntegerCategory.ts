@@ -2,9 +2,10 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type BaseResponseListString = {
+import type { Category } from './Category';
+export type BaseResponseMapIntegerCategory = {
     code?: number;
     message?: string;
-    data?: Array<string>;
+    data?: Record<string, Category>;
 };
 

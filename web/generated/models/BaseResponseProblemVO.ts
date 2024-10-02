@@ -2,9 +2,10 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { ProblemVO } from "./ProblemVO";
+import type { ProblemVO } from './ProblemVO';
 export type BaseResponseProblemVO = {
-  code?: number;
-  message?: string;
-  data?: ProblemVO;
+    code?: number;
+    message?: string;
+    data?: ProblemVO;
 };
+

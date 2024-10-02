@@ -2,9 +2,10 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { TagVO } from "./TagVO";
+import type { TagVO } from './TagVO';
 export type BaseResponseListTagVO = {
-  code?: number;
-  message?: string;
-  data?: Array<TagVO>;
+    code?: number;
+    message?: string;
+    data?: Array<TagVO>;
 };
+
