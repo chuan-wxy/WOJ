@@ -128,7 +128,7 @@ import { ProblemControllerService } from "../../../generated/services/ProblemCon
 import { ElMessage } from "element-plus";
 
 const current = ref(1);
-const size = ref(20);
+const size = ref(10);
 const total = ref(0);
 const finished = ref(false);
 
@@ -272,5 +272,21 @@ hr {
 #problem >>> .el-table {
   color: var(--theme-color);
   background-color: var(--content-bg);
+}
+:deep(.el-card) {
+  background-color: var(--theme-bg-color);
+  border: 1px, var(--border-color);
+}
+:deep(.el-pagination__total) {
+  color: var(--theme-color);
+}
+:deep(.el-pager li) {
+  background-color: var(--theme-bg-color);
+}
+:deep(.el-pagination button:disabled) {
+  background-color: var(--theme-bg-color);
+}
+:deep(.el-pagination button) {
+  background-color: var(--theme-bg-color);
 }
 </style>
