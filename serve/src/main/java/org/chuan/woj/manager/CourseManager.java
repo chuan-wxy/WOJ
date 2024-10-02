@@ -38,7 +38,7 @@ public class CourseManager {
         if(pid != null && pid < 0) {
             throw new StatusFailException("参数pid非法");
         }
-        if(pid != null && level != 1) {
+        if(pid == null && level != 1) {
             throw new StatusFailException("非第一层，请指定父节点");
         }
     }
