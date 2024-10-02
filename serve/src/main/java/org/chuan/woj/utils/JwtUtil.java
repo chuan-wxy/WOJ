@@ -26,8 +26,8 @@ import java.util.Date;
 @ConfigurationProperties(prefix = "woj.jwt")
 public class JwtUtil {
     private String secret = "23e2q1exd2q1e4dxq14edxq2145rq23r5fasdasdq2wed21qed2q1edq21";
-
-    private long expire = 30 * 60;
+    // 过期时间
+    private long expire =12 * 60 * 60;
 
     @Autowired
     private RedisUtil redisUtil;
