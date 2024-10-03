@@ -32,6 +32,9 @@ public class FileController {
     @Value("${path.avatar.course-avatar-path}")
     String courseAvatarPath;
 
+    @Value("${path.avatar.activity-avatar-path}")
+    String activityAvatarPath;
+
     @PostMapping("/upload-avatar")
     public String uploadAvatar() {
         return null;
@@ -80,6 +83,33 @@ public class FileController {
         File courseAvatar = new File(filePath);
         try {
             file.transferTo(courseAvatar);
+            log.info("课程图片已成功保存至: {}", filePath);
+            return ResultUtils.success(filePath);
+        } catch (IOException e) {
+            log.error("文件保存失败: {}", e.getMessage());
+            return ResultUtils.error("保存失败，错误信息: " + e.getMessage());
+        }
+    }
+
+    @PostMapping("/upload-activity-avatar")
+    public BaseResponse<String> uploadActivityAvatar(MultipartFile file, String activityTitle) throws StatusSystemErrorException {
+        String originFileName = file.getOriginalFilename();
+        String dirPath = activityAvatarPath + File.separator + activityTitle;
+
+        File dir = new File(dirPath);
+        if (!dir.exists()) {
+            boolean success = dir.mkdirs();
+            if (!success) {
+
+                log.error("无法创建目录: {}", dirPath);
+                throw new StatusSystemErrorException("目录创建失败");
+            }
+        }
+
+        String filePath = dirPath + File.separator + originFileName;
+        File activityAvatar = new File(filePath);
+        try {
+            file.transferTo(activityAvatar);
             log.info("课程图片已成功保存至: {}", filePath);
             return ResultUtils.success(filePath);
         } catch (IOException e) {
