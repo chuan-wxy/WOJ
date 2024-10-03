@@ -10,12 +10,16 @@ import org.chuan.woj.mapper.CourseMapper;
 import org.chuan.woj.pojo.dto.course.CourseAddDTO;
 import org.chuan.woj.pojo.entity.Course;
 import org.chuan.woj.service.course.CourseService;
+import org.chuan.woj.utils.CourseTreeBuilder;
 import org.chuan.woj.utils.ResultUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
 * @author lenovo
@@ -81,8 +85,44 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course>
     }
 
     @Override
-    public BaseResponse<List<Course>> getCourse() {
-        return null;
+    public BaseResponse<Map<Integer , org.chuan.woj.utils.CourseTreeBuilder.Category>> getCourseList() {
+        List<Course> list = this.list();
+        List<CourseTreeBuilder.Category> categories = new ArrayList<>();
+        for (Course course : list) {
+            CourseTreeBuilder.Category category = new CourseTreeBuilder.Category(course.getId(),course.getName());
+            category.setAvatar(course.getAvatar());
+            category.setDescription(course.getDescription());
+            categories.add(category);
+        }
+        Map<Integer, CourseTreeBuilder.Category> categoryMap = CourseTreeBuilder.buildTree(categories,0);
+        return ResultUtils.success(categoryMap);
+    }
+
+    @Override
+    public BaseResponse<List<Course>> getFirst() {
+        QueryWrapper<Course> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("level",1);
+        List<Course> list = this.list(queryWrapper);
+        return ResultUtils.success(list);
+    }
+
+    @Override
+    public BaseResponse<Map<Integer, CourseTreeBuilder.Category>> getSecond(Long id) {
+        QueryWrapper<Course> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("pid",id);
+
+        List<Course> list = courseMapper.selectCourseInFirst(id);
+
+        List<CourseTreeBuilder.Category> categories = new ArrayList<>();
+        for (Course course : list) {
+            CourseTreeBuilder.Category category = new CourseTreeBuilder.Category(course.getId(),course.getName());
+            category.setAvatar(course.getAvatar());
+            category.setPid(course.getPid());
+            category.setDescription(course.getDescription());
+            categories.add(category);
+        }
+        Map<Integer, CourseTreeBuilder.Category> categoryMap = CourseTreeBuilder.buildTree(categories, Math.toIntExact(id));
+        return ResultUtils.success(categoryMap);
     }
 }
 

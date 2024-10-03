@@ -6,8 +6,10 @@ import org.chuan.woj.common.BaseResponse;
 import org.chuan.woj.exception.StatusFailException;
 import org.chuan.woj.pojo.dto.course.CourseAddDTO;
 import org.chuan.woj.pojo.entity.Course;
+import org.chuan.woj.utils.CourseTreeBuilder;
 
 import java.util.List;
+import java.util.Map;
 
 /**
 * @author lenovo
@@ -20,5 +22,9 @@ public interface CourseService extends IService<Course> {
 
     BaseResponse<List<Course>> getCourseByLevel(Integer level);
 
-    BaseResponse<List<Course>> getCourse();
+    BaseResponse<Map<Integer , org.chuan.woj.utils.CourseTreeBuilder.Category>> getCourseList();
+
+    BaseResponse<List<Course>> getFirst();
+
+    BaseResponse<Map<Integer , org.chuan.woj.utils.CourseTreeBuilder.Category>> getSecond(Long id);
 }

@@ -19,4 +19,8 @@
         id,pid,name,level,description,
         avatar,createTime,updateTime
     </sql>
+    <select id="selectCourseInFirst" resultType="org.chuan.woj.pojo.entity.Course">
+        select * from `course`
+        where `pid` in (select id from `course` where pid = #{pid}) or `pid`=#{pid}
+    </select>
 </mapper>
