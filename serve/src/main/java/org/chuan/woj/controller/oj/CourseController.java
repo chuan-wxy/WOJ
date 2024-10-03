@@ -1,19 +1,19 @@
 package org.chuan.woj.controller.oj;
 
-import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.chuan.woj.annotation.AuthCheck;
 import org.chuan.woj.common.BaseResponse;
 import org.chuan.woj.constant.UserConstant;
 import org.chuan.woj.exception.StatusFailException;
-import org.chuan.woj.exception.StatusSystemErrorException;
 import org.chuan.woj.pojo.dto.course.CourseAddDTO;
 import org.chuan.woj.pojo.entity.Course;
 import org.chuan.woj.service.course.CourseService;
+import org.chuan.woj.utils.CourseTreeBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author: chuan-wxy
@@ -51,8 +51,22 @@ public class CourseController {
         return courseService.getCourseByLevel(level);
     }
 
-    @GetMapping("/get-course")
-    public BaseResponse<List<Course>> getCourse() {
-        return courseService.getCourse();
+    @GetMapping("/get-courseList")
+    @AuthCheck(mustRole = UserConstant.DEFAULT_USER)
+    public BaseResponse<Map<Integer , CourseTreeBuilder.Category >> getCourseList() {
+        return courseService.getCourseList();
     }
+
+    @GetMapping("/get-first")
+    @AuthCheck(mustRole = UserConstant.DEFAULT_USER)
+    public BaseResponse<List<Course>> getFirst() {
+        return courseService.getFirst();
+    }
+
+    @GetMapping("/get-second")
+    @AuthCheck(mustRole = UserConstant.DEFAULT_USER)
+    public BaseResponse<Map<Integer , org.chuan.woj.utils.CourseTreeBuilder.Category>> getSecond(@RequestParam Long id) {
+        return courseService.getSecond(id);
+    }
+
 }
