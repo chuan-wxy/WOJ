@@ -5,9 +5,9 @@
 import type { ProblemTitleVO } from './ProblemTitleVO';
 export type IPageProblemTitleVO = {
     size?: number;
-    total?: number;
-    current?: number;
     records?: Array<ProblemTitleVO>;
+    current?: number;
+    total?: number;
     pages?: number;
 };
 
