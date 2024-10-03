@@ -14,7 +14,7 @@ judgecase-path: ${JUDGECASE_PATH:/usr/local/nginx/html/judgecase}
 # 图像
 user-avatar-path: ${USER_AVATAR_PATH:/usr/local/nginx/html/avatar/user}
 course-avatar-path: ${COURSE_AVATAR_PATH:/usr/local/nginx/html/avatar/course}
-
+activity-avatar-path: ${ACTIVITY_AVATAR_PATH:/usr/local/nginx/html/avatar/activity}
 
 spring:
   # 数据库配置
@@ -84,4 +84,5 @@ path:
   avatar:
     user-avatar-path: ${user-avatar-path}
     course-avatar-path: ${course-avatar-path}
+    activity-avatar-path: ${activity-avatar-path}
 
