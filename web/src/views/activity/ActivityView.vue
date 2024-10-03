@@ -10,7 +10,7 @@
           :key="index"
           @click="goto(item.id)"
         >
-          <a-list-item-meta :title="item.name" :description="item.description">
+          <a-list-item-meta :title="item.title" :description="item.description">
             <template #avatar>
               <a-avatar shape="square">
                 <img alt="avatar" :src="item.avatar" />
@@ -25,21 +25,25 @@
 
 <script lang="ts" setup>
 import { onMounted, ref } from "vue";
-import { CourseControllerService } from "../../../generated";
 import { useRouter } from "vue-router";
+import { ActivityControllerService } from "../../../generated/services/ActivityControllerService";
+import { ElMessage } from "element-plus";
 
 const data = ref();
-
-const loadData = async () => {
-  const res = await CourseControllerService.getFirst();
-  data.value = res.data;
-};
-
 const router = useRouter();
 
-const goto = (id: string) => {
+const loadData = async () => {
+  const res = await ActivityControllerService.getActivityList();
+  if (res.code === 0) {
+    data.value = res.data;
+  } else {
+    ElMessage.error("获取数据失败：" + res.message);
+  }
+};
+
+const goto = (id: number) => {
   router.push({
-    path: "/course/content",
+    path: "/activity/content",
     query: {
       id: id,
     },
