@@ -68,8 +68,12 @@ const barData = reactive([
             index: "/admin/addcourse",
           },
           {
-            title: "添加题目",
+            title: "新建题目",
             index: "/admin/addproblem",
+          },
+          {
+            title: "新建活动",
+            index: "/admin/addactivity",
           },
         ],
       },
