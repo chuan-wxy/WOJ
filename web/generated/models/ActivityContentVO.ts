@@ -6,5 +6,6 @@ export type ActivityContentVO = {
     id?: number;
     title?: string;
     description?: string;
+    createTime?: string;
 };
 
