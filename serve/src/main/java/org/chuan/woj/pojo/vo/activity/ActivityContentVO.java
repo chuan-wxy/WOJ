@@ -3,6 +3,7 @@ package org.chuan.woj.pojo.vo.activity;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.sql.Date;
 
 /**
  * @Author: chuan-wxy
@@ -25,6 +26,8 @@ public class ActivityContentVO implements Serializable {
      * 内容
      */
     private String description;
+
+    private Date createTime;
 
     private static final long serialVersionUID = 1L;
 }
