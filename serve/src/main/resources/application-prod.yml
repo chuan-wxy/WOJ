@@ -9,6 +9,10 @@ mysql-port: ${MYSQL_PORT:3306}
 mysql-username: ${MYSQL_USERNAME:root}
 mysql-password: ${MYSQL_PASSWORD:2W0x0y40706@}
 
+ssl-key-store-type: ${SSL_KEY_STORE_TYPE:JKS}
+ssl-key-password: ${SSL_KEY_PASSWORD:21q06e25}
+ssl-key-store-path: ${SSL_KEY_STORE_PATH:/home/serve/resource/woj.asia.jks}
+
 submit-code-path: ${SUBMIT_CODE_PATH:/usr/local/nginx/html/submitcode}
 judgecase-path: ${JUDGECASE_PATH:/usr/local/nginx/html/judgecase}
 # 图像
@@ -37,6 +41,11 @@ spring:
 
 server:
   port: 8088
+  ssl:
+    key-store-type: ${ssl-key-store-type}
+    key-password: ${ssl-key-password}
+    key-store: ${ssl-key-store-type}
+
   servlet:
     context-path: /api
 

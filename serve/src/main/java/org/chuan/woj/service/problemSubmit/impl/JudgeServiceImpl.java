@@ -51,6 +51,7 @@ public class JudgeServiceImpl implements JudgeService {
         }
         String language = problemSubmit.getLanguage();
         String code = problemSubmit.getCode();
+
         CodeSandbox codeSandbox = CodeSandboxFactory.newCodeSandbox(language);
 //        codeSandbox = new CodeSandboxProxy(codeSandbox);
         ExecuteCodeRequest executeCodeRequest = ExecuteCodeRequest.builder()
