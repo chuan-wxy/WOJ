@@ -2,6 +2,11 @@ package org.chuan.woj.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.chuan.woj.pojo.entity.Announcement;
+import org.chuan.woj.pojo.vo.activity.ActivityTitleVO;
+import org.chuan.woj.pojo.vo.announcement.AnnouncementContentVO;
+import org.chuan.woj.pojo.vo.announcement.AnnouncementTitleVO;
+
+import java.util.List;
 
 /**
 * @author lenovo
@@ -11,6 +16,9 @@ import org.chuan.woj.pojo.entity.Announcement;
 */
 public interface AnnouncementMapper extends BaseMapper<Announcement> {
 
+    List<AnnouncementTitleVO> selectAnnouncementTitleList();
+
+    AnnouncementContentVO selectAnnouncementContentVO(Integer id);
 }
 
 
