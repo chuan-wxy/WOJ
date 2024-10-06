@@ -22,10 +22,6 @@ server:
   port: 8088
   servlet:
     context-path: /api
-  ssl:
-    key-store: classpath:woj.asia.jks
-    key-password: 21q06e25
-    key-store-type: JKS
 mybatis-plus:
   global-config:
     db-config:
