@@ -18,6 +18,7 @@ import ACCESS_ENUM from "@/access/accessEnum";
 import { ElMessage } from "element-plus";
 import AddActivityView from "@/views/admin/AddActivityView.vue";
 import ActivityContentView from "@/views/activity/ActivityContentView.vue";
+import AnnouncementView from "@/views/announcement/AnnouncementView.vue";
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
@@ -106,6 +107,14 @@ const router = createRouter({
           path: "activity/content",
           name: "ActivityContentView",
           component: ActivityContentView,
+          meta: {
+            premission: PERMISSION_ENUM.NO,
+          },
+        },
+        {
+          path: "announcement",
+          name: "AnnouncementView",
+          component: AnnouncementView,
           meta: {
             premission: PERMISSION_ENUM.NO,
           },

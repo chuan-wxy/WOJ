@@ -1,7 +1,3 @@
-/* generated using openapi-typescript-codegen -- do not edit */
-/* istanbul ignore file */
-/* tslint:disable */
-/* eslint-disable */
 import type { BaseResponseIPageProblemTitleVO } from "../models/BaseResponseIPageProblemTitleVO";
 import type { BaseResponseListTagVO } from "../models/BaseResponseListTagVO";
 import type { BaseResponsePageProblemTitleVO } from "../models/BaseResponsePageProblemTitleVO";
@@ -12,6 +8,7 @@ import type { ProblemUpdateDTO } from "../models/ProblemUpdateDTO";
 import type { CancelablePromise } from "../core/CancelablePromise";
 import { OpenAPI } from "../core/OpenAPI";
 import { request as __request } from "../core/request";
+
 export class ProblemControllerService {
   /**
    * @param requestBody

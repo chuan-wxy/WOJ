@@ -1,11 +1,8 @@
-/* generated using openapi-typescript-codegen -- do not edit */
-/* istanbul ignore file */
-/* tslint:disable */
-/* eslint-disable */
 import type { BaseResponseString } from "../models/BaseResponseString";
 import type { CancelablePromise } from "../core/CancelablePromise";
 import { OpenAPI } from "../core/OpenAPI";
 import { request as __request } from "../core/request";
+
 export class FileControllerService {
   /**
    * @param file
@@ -53,6 +50,25 @@ export class FileControllerService {
     return __request(OpenAPI, {
       method: "POST",
       url: "/file/upload-avatar",
+    });
+  }
+  /**
+   * @param file
+   * @param activityTitle
+   * @returns BaseResponseString OK
+   * @throws ApiError
+   */
+  public static uploadActivityAvatar(
+    file: Blob,
+    activityTitle: string
+  ): CancelablePromise<BaseResponseString> {
+    return __request(OpenAPI, {
+      method: "POST",
+      url: "/file/upload-activity-avatar",
+      query: {
+        file: file,
+        activityTitle: activityTitle,
+      },
     });
   }
 }
