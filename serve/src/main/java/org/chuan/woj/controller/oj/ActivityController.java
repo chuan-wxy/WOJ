@@ -1,7 +1,9 @@
 package org.chuan.woj.controller.oj;
 
 import lombok.extern.slf4j.Slf4j;
+import org.chuan.woj.annotation.AuthCheck;
 import org.chuan.woj.common.BaseResponse;
+import org.chuan.woj.constant.UserConstant;
 import org.chuan.woj.exception.StatusFailException;
 import org.chuan.woj.pojo.dto.activity.ActivityAddDTO;
 import org.chuan.woj.pojo.vo.activity.ActivityContentVO;
@@ -30,6 +32,7 @@ public class ActivityController {
      * @return
      */
     @PostMapping("/add")
+    @AuthCheck(mustRole = UserConstant.AMDIN)
     public BaseResponse<String> addActivity(@RequestBody ActivityAddDTO activityAddDTO) throws StatusFailException {
         return activityService.addActivity(activityAddDTO);
     }

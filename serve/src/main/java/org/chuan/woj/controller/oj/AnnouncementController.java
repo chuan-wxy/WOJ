@@ -36,6 +36,7 @@ public class AnnouncementController {
      * @return
      */
     @PostMapping("/add")
+    @AuthCheck(mustRole = UserConstant.AMDIN)
     public BaseResponse<String> addAnnouncement(@RequestBody AnnouncementAddDTO announcementAddDTO) throws StatusFailException {
         return announcementService.addAnnouncement(announcementAddDTO);
     }
