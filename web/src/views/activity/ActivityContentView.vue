@@ -1,5 +1,5 @@
 <template>
-  <div id="problem-content">
+  <div id="activity-content">
     <div class="panel-body">
       <h1 style="text-align: center">{{ activityData.title }}</h1>
       <div class="footer">发布于： {{ activityData.createTime }}</div>
@@ -16,6 +16,7 @@ import { useRoute } from "vue-router";
 import { ElMessage } from "element-plus";
 import { ActivityControllerService } from "../../../generated/services/ActivityControllerService";
 import { ActivityContentVO } from "../../../generated/models/ActivityContentVO";
+import { Viewer } from "@bytemd/vue-next";
 
 const route = useRoute();
 const activityData = ref({
@@ -44,7 +45,7 @@ onBeforeMount(() => {
 </script>
 
 <style scoped>
-#problem-content {
+#activity-content {
   background: rgba(0, 0, 0, 0%);
   width: 95%;
   height: 100vh;
