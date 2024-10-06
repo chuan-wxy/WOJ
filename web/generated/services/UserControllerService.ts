@@ -1,7 +1,3 @@
-/* generated using openapi-typescript-codegen -- do not edit */
-/* istanbul ignore file */
-/* tslint:disable */
-/* eslint-disable */
 import type { BaseResponseBoolean } from "../models/BaseResponseBoolean";
 import type { BaseResponseListString } from "../models/BaseResponseListString";
 import type { BaseResponseString } from "../models/BaseResponseString";
