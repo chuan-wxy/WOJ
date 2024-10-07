@@ -74,7 +74,10 @@ export const useUserStore = defineStore("user", {
         this.userInfo.userAccount as any
       );
       if (res && res.code === 0) {
+        console.log("res不为空" + res.data);
         this.userRole = res.data as any;
+      } else {
+        ElMessage.error("获取用户角色失败");
       }
     },
   },
