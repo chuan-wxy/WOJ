@@ -19,6 +19,7 @@ import { ElMessage } from "element-plus";
 import AddActivityView from "@/views/admin/AddActivityView.vue";
 import ActivityContentView from "@/views/activity/ActivityContentView.vue";
 import AnnouncementView from "@/views/announcement/AnnouncementView.vue";
+import AddAnnouncementView from "@/views/admin/AddAnnouncementView.vue";
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
@@ -79,6 +80,11 @@ const router = createRouter({
               path: "addactivity",
               name: "AddActivityView",
               component: AddActivityView,
+            },
+            {
+              path: "addannouncement",
+              name: "AddAnnouncementView",
+              component: AddAnnouncementView,
             },
           ],
         },
