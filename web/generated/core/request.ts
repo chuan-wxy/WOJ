@@ -1,17 +1,43 @@
 /* generated using openapi-typescript-codegen -- do not edit */
+import type {
+  AxiosError,
+  AxiosInstance,
+  AxiosRequestConfig,
+  AxiosResponse,
+} from "axios";
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
 import axios from 'axios';
-import type { AxiosError, AxiosRequestConfig, AxiosResponse, AxiosInstance } from 'axios';
 import FormData from 'form-data';
 
-import { ApiError } from './ApiError';
-import type { ApiRequestOptions } from './ApiRequestOptions';
-import type { ApiResult } from './ApiResult';
-import { CancelablePromise } from './CancelablePromise';
-import type { OnCancel } from './CancelablePromise';
-import type { OpenAPIConfig } from './OpenAPI';
+import {ApiError} from './ApiError';
+import type {ApiRequestOptions} from './ApiRequestOptions';
+import type {ApiResult} from './ApiResult';
+import type {OnCancel} from './CancelablePromise';
+import {CancelablePromise} from './CancelablePromise';
+import type {OpenAPIConfig} from './OpenAPI';
+
+axios.interceptors.request.use(
+    function (config) {
+        const tokenStr = localStorage.getItem("user");
+        if (tokenStr) {
+            try {
+                const tokenObj = JSON.parse(tokenStr);
+                const jwt = tokenObj.userInfo.jwt;
+                if (jwt) {
+                    config.headers["Authorization"] = jwt;
+                }
+            } catch (error) {
+                console.error("Failed to parse token from localStorage:", error);
+            }
+        }
+        return config;
+    },
+    function (error) {
+        return Promise.reject(error);
+    }
+);
 
 export const isDefined = <T>(value: T | null | undefined): value is Exclude<T, null | undefined> => {
     return value !== undefined && value !== null;
