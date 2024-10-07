@@ -12,10 +12,12 @@
 <script setup lang="ts">
 import gfm from "@bytemd/plugin-gfm";
 import highlight from "@bytemd/plugin-highlight";
-import { Editor, Viewer } from "@bytemd/vue-next";
+import math from "@bytemd/plugin-math-ssr";
+import { Editor } from "@bytemd/vue-next";
 
 const plugins = [
   gfm(),
+  math(),
   highlight(),
   // Add more plugins here
 ];
