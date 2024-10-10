@@ -37,7 +37,7 @@ public class ProblemSubmitController {
     @Autowired
     ProblemSubmitService problemSubmitService;
 
-    @PostMapping("/")
+    @PostMapping("/doSubmit")
     public BaseResponse<ProblemSubmitVO> doSubmit(@RequestBody ProblemSubmitAddDTO problemSubmitAddDTO,
                                                              HttpServletRequest request) throws StatusFailException, StatusSystemErrorException, IOException, InterruptedException {
         final UserLoginVO loginUser = userService.getLoginUser(request).getData();
