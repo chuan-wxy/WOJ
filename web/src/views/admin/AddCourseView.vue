@@ -32,6 +32,8 @@
         <el-upload
           class="upload-demo"
           drag
+          method="POST"
+          :headers="{ Authorization: jwt }"
           :action="courseAvatarUploadPath"
           :on-success="handleAvatarSuccess"
           :data="avatarData"
@@ -54,15 +56,16 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, watch } from "vue";
+import { onBeforeMount, ref, watch } from "vue";
 import { ElMessage } from "element-plus";
 import { CourseControllerService } from "../../../generated/services/CourseControllerService";
 import { CourseAddDTO } from "../../../generated";
 
 const parent = ref();
 const parentList = ref();
-
 const isUpdate = ref(false);
+
+const jwt = ref("");
 const avatarData = ref({
   courseName: "",
 });
@@ -90,6 +93,18 @@ const form = ref({
   level: 0,
   description: "",
 } as CourseAddDTO);
+
+const loadJwt = () => {
+  const tokenStr = localStorage.getItem("user");
+  if (tokenStr) {
+    try {
+      const tokenObj = JSON.parse(tokenStr);
+      jwt.value = tokenObj.userInfo.jwt;
+    } catch (error) {
+      console.error("Failed to parse token from localStorage:", error);
+    }
+  }
+};
 
 // 图片上传成功，回调函数
 const handleAvatarSuccess = (response) => {
@@ -137,7 +152,8 @@ const updateCourse = async () => {
     ElMessage.error("修改失败：" + res.message);
   }
 };
-onMounted(() => {
+onBeforeMount(() => {
+  loadJwt();
   courseAvatarUploadPath.value = process.env
     .VUE_APP_COURSE_AVATAR_UPLOAD_PATH as string;
 });

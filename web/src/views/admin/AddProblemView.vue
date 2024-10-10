@@ -45,7 +45,8 @@
       <el-upload
         class="upload-demo"
         drag
-        headers="POST"
+        method="POST"
+        :headers="{ Authorization: jwt }"
         :action="judgeCaseUploadPath"
         multiple
         :data="fileData"
@@ -67,7 +68,7 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, onMounted, ref } from "vue";
+import { onBeforeMount, ref } from "vue";
 import MdEditor from "@/components/MdEditor.vue";
 import { useRoute } from "vue-router";
 import { ElMessage, ElMessageBox } from "element-plus";
@@ -79,7 +80,7 @@ import { ProblemAddDTO } from "../../../generated/models/ProblemAddDTO";
 const route = useRoute();
 const userStore = useUserStore();
 const isUpdate = ref(false);
-
+const jwt = ref("");
 const fileData = ref({
   pid: "deafualt",
 });
@@ -102,6 +103,35 @@ const form = ref({
   spjCode: "",
   spjLanguage: "",
 } as ProblemAddDTO);
+
+const loadJwt = () => {
+  const tokenStr = localStorage.getItem("user");
+  if (tokenStr) {
+    try {
+      const tokenObj = JSON.parse(tokenStr);
+      jwt.value = tokenObj.userInfo.jwt;
+    } catch (error) {
+      console.error("Failed to parse token from localStorage:", error);
+    }
+  }
+};
+
+const loadData = async () => {
+  const id = route.query.id;
+  const update = route.query.update;
+  if (update) {
+    isUpdate.value = true;
+  }
+  if (!id) {
+    return;
+  }
+  const res = await ProblemControllerService.getProblem(Number(id));
+  if (res.code === 0 && res.data !== undefined) {
+    form.value = res.data as ProblemVO;
+  } else {
+    ElMessage.error("加载失败：" + res.message);
+  }
+};
 
 const addQuestion = async () => {
   form.value.author = userStore.userInfo.userName;
@@ -148,28 +178,10 @@ const onContentMdchange = (v: string) => {
   form.value.description = v;
 };
 
-const loadData = async () => {
-  const id = route.query.id;
-  const update = route.query.update;
-  if (update) {
-    isUpdate.value = true;
-  }
-  if (!id) {
-    return;
-  }
-  const res = await ProblemControllerService.getProblem(Number(id));
-  if (res.code === 0 && res.data !== undefined) {
-    form.value = res.data as ProblemVO;
-  } else {
-    ElMessage.error("加载失败：" + res.message);
-  }
-};
-
 onBeforeMount(() => {
   loadData();
+  loadJwt();
   fileData.value.pid = form.value.problemId as string;
-});
-onMounted(() => {
   judgeCaseUploadPath.value = process.env
     .VUE_APP_JUDGECASE_UPLOAD_PATH as string;
 });
