@@ -3,7 +3,7 @@
     <div class="panel-body">
       <h2>{{ problemData.title }}</h2>
       <div class="content">
-        <Viewer :value="problemData.description" />
+        <Viewer :value="problemData.description" :plugins="plugins" />
       </div>
       <br />
       <div>
@@ -31,12 +31,22 @@ import {
 import { ElMessage } from "element-plus";
 import CodeEditor from "@/components/CodeEditor.vue";
 import { Viewer } from "@bytemd/vue-next";
+import gfm from "@bytemd/plugin-gfm";
+import math from "@bytemd/plugin-math-ssr";
+import highlight from "@bytemd/plugin-highlight";
 
 const route = useRoute();
 const isState = ref(true);
 const isHide = ref(true);
 const message = ref("");
 const codeEditor = ref();
+
+const plugins = [
+  gfm(),
+  math(),
+  highlight(),
+  // Add more plugins here
+];
 
 const problemData = ref({
   id: 0,
@@ -77,9 +87,9 @@ const submit = async () => {
   isState.value = true;
   if (result.code === 0) {
     message.value = result.message ?? "";
-    ElMessage.success("添加成功");
+    ElMessage.success("提交成功");
   } else {
-    ElMessage.error("添加失败：" + result.message);
+    ElMessage.error("提交失败：" + result.message);
   }
 };
 
