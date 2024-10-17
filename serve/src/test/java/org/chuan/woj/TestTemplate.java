@@ -1,5 +1,10 @@
 package org.chuan.woj;
 
+import com.github.dockerjava.api.DockerClient;
+import com.github.dockerjava.api.command.PingCmd;
+import com.github.dockerjava.core.DockerClientBuilder;
+import org.chuan.woj.mapper.ActivityMapper;
+import org.chuan.woj.pojo.vo.activity.ActivityTitleVO;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +21,52 @@ import org.springframework.test.context.junit4.SpringRunner;
  */
 @SpringBootTest
 public class TestTemplate {
+
+    @Autowired
+    ActivityMapper activityMapper;
     @Test
     public void test(){
-
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

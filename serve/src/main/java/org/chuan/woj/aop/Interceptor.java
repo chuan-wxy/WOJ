@@ -2,7 +2,9 @@ package org.chuan.woj.aop;
 
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -55,12 +57,13 @@ public class Interceptor {
     @Autowired
     RoleService roleService;
 
-    @Around("@annotation(authCheck)")
-    public Object   AuthenticationInterceptor(ProceedingJoinPoint point, AuthCheck authCheck) throws Throwable {
-
-
+    @Around("@annotation(org.chuan.woj.annotation.AuthCheck)")
+    public Object AuthenticationInterceptor(ProceedingJoinPoint point) throws Throwable {
         RequestAttributes requestAttributes = RequestContextHolder.currentRequestAttributes();
         HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
+
+        // 获取注解
+        AuthCheck authCheck = point.getTarget().getClass().getAnnotation(AuthCheck.class);
 
         String jwt = request.getHeader("Authorization");
         // jwt = jwt.split(" ")[1];

@@ -5,6 +5,11 @@ spring:
     url: jdbc:mysql://localhost:3306/woj
     username: root
     password: 2W0x0y40706@
+  session:
+   redis:
+     flush-mode: on_save
+     save-mode: always
+     namespace: "coderjia:session"
   data:
     redis:
       host: localhost
