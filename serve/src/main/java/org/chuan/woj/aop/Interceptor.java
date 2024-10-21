@@ -8,6 +8,7 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.chuan.woj.annotation.AuthCheck;
 import org.chuan.woj.common.ResultStatus;
 import org.chuan.woj.common.enums.UserRoleEnum;
@@ -62,8 +63,9 @@ public class Interceptor {
         RequestAttributes requestAttributes = RequestContextHolder.currentRequestAttributes();
         HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
 
-        // 获取注解
-        AuthCheck authCheck = point.getTarget().getClass().getAnnotation(AuthCheck.class);
+        // 获取方法上的注解
+        MethodSignature signature = (MethodSignature) point.getSignature();
+        AuthCheck authCheck = signature.getMethod().getAnnotation(AuthCheck.class);
 
         String jwt = request.getHeader("Authorization");
         // jwt = jwt.split(" ")[1];
