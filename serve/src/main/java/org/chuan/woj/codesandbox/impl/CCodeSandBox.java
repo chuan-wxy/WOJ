@@ -52,8 +52,13 @@ public class CCodeSandBox implements CodeSandbox {
 
     @Override
     public JudgeInfo executeCode(ExecuteCodeRequest executeCodeRequest, Problem problem) throws IOException, InterruptedException, StatusFailException {
+        JudgeInfo judgeInfoResponse = new JudgeInfo();
+        //初始值为ACCEPTED
+        JudgeInfoMessageEnum judgeInfoMessageEnum = JudgeInfoMessageEnum.ACCEPTED;
+        judgeInfoResponse.setMessage(judgeInfoMessageEnum.getValue());
+
         long needTime = problem.getTimeLimit();
-        long questionId = problem.getId();
+        String questionId = problem.getProblemId();
         // 写文件
         String code = executeCodeRequest.getCode();
         String UUID = java.util.UUID.randomUUID().toString();
@@ -71,30 +76,29 @@ public class CCodeSandBox implements CodeSandbox {
         }
 
         // 编译代码
-        String command = String.format("g++ -std=c++17 -o %s\\Main.exe %s", parentPath, path);
+        String command = String.format("g++ -std=c++17 -o %s/Main.exe %s", parentPath, path);
         try {
             Process compileProcess = Runtime.getRuntime().exec(command);
             ExecuteMessage executeMessage = ProcessUtils.runProcessAndGetMessage(compileProcess, "编译");
+            if(executeMessage.getExitValue() != 0){
+                judgeInfoMessageEnum = JudgeInfoMessageEnum.COMPILE_ERROR;
+                judgeInfoResponse.setMessage(judgeInfoMessageEnum.getValue());
+                return judgeInfoResponse;
+            }
         } catch (Exception e) {
-            throw new StatusFailException("编译失败");
+            throw new StatusFailException(e.getMessage(), e);
         }
 
-        JudgeInfo judgeInfoResponse = new JudgeInfo();
         List<Long> timeList = new ArrayList<>();
-        //初始值为ACCEPTED
-        JudgeInfoMessageEnum judgeInfoMessageEnum = JudgeInfoMessageEnum.ACCEPTED;
-        judgeInfoResponse.setMessage(judgeInfoMessageEnum.getValue());
 
         for (int i = 0; i < 10 ; i++) {
             long startTime = System.currentTimeMillis();
             try {
-                ProcessBuilder builder = new ProcessBuilder(parentPath + "\\Main.exe");
-                //debug
-                System.out.println("judgeCasePath路径");
-                System.out.println(staticJudgeCasePath);
-                String inputFilePath = String.format("%s\\%d\\test%d.in", staticJudgeCasePath, questionId, i);
-                String outputFilePath = String.format("%s\\test%d.out", parentPath, i);
-                String answerFilePath = String.format("%s\\%d\\test%d.out", staticJudgeCasePath, questionId, i);
+                ProcessBuilder builder = new ProcessBuilder(parentPath + File.separator + "Main.exe");
+                String inputFilePath = String.format(staticJudgeCasePath+File.separator+questionId+File.separator+"test%d.in", i);
+                String outputFilePath = String.format(parentPath+File.separator+"test%d.out",i);
+                String answerFilePath = String.format(staticJudgeCasePath+File.separator+questionId + File.separator+"test%d.out", i);
+
                 builder.redirectInput(new File(inputFilePath));
                 builder.redirectOutput(new File(outputFilePath));
 
