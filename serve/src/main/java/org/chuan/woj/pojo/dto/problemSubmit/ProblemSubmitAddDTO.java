@@ -30,11 +30,6 @@ public class ProblemSubmitAddDTO implements Serializable {
      */
     private Long pid;
 
-    /**
-     * 用户id
-     */
-    private String uid;
-
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 }
