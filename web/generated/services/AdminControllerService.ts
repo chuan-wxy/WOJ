@@ -1,9 +1,13 @@
-import type { BaseResponseListUserVO } from "../models/BaseResponseListUserVO";
-import type { BaseResponseUserVO } from "../models/BaseResponseUserVO";
-import type { BaseResponseVoid } from "../models/BaseResponseVoid";
-import type { CancelablePromise } from "../core/CancelablePromise";
-import { OpenAPI } from "../core/OpenAPI";
-import { request as __request } from "../core/request";
+/* generated using openapi-typescript-codegen -- do not edit */
+/* istanbul ignore file */
+/* tslint:disable */
+/* eslint-disable */
+import type {CancelablePromise} from "../core/CancelablePromise";
+import {OpenAPI} from "../core/OpenAPI";
+import {request as __request} from "../core/request";
+import type {BaseResponseListUserVO} from "../models/BaseResponseListUserVO";
+import type {BaseResponseUserVO} from "../models/BaseResponseUserVO";
+import type {BaseResponseVoid} from "../models/BaseResponseVoid";
 
 export class AdminControllerService {
   /**
@@ -22,6 +26,7 @@ export class AdminControllerService {
       },
     });
   }
+
   /**
    * @param uuid
    * @returns BaseResponseUserVO OK
@@ -38,6 +43,7 @@ export class AdminControllerService {
       },
     });
   }
+
   /**
    * @param uuid
    * @returns BaseResponseVoid OK

@@ -10,6 +10,7 @@ import type { UserRegisterDTO } from "../models/UserRegisterDTO";
 import type { CancelablePromise } from "../core/CancelablePromise";
 import { OpenAPI } from "../core/OpenAPI";
 import { request as __request } from "../core/request";
+
 export class UserControllerService {
   /**
    * @param requestBody
@@ -56,6 +57,7 @@ export class UserControllerService {
       mediaType: "application/json",
     });
   }
+
   /**
    * @param requestBody
    * @returns BaseResponseVoid OK
@@ -71,6 +73,7 @@ export class UserControllerService {
       mediaType: "application/json",
     });
   }
+
   /**
    * @param requestBody
    * @returns BaseResponseUserLoginVO OK
@@ -86,6 +89,7 @@ export class UserControllerService {
       mediaType: "application/json",
     });
   }
+
   /**
    * @param userAccount
    * @returns BaseResponseListString OK
@@ -102,6 +106,7 @@ export class UserControllerService {
       },
     });
   }
+
   /**
    * @param requestBody
    * @returns BaseResponseVoid OK
@@ -117,6 +122,7 @@ export class UserControllerService {
       mediaType: "application/json",
     });
   }
+
   /**
    * @returns BaseResponseUserLoginVO OK
    * @throws ApiError
@@ -127,6 +133,7 @@ export class UserControllerService {
       url: "/user/get-loginuser",
     });
   }
+
   /**
    * @param email
    * @returns BaseResponseString OK
@@ -143,6 +150,7 @@ export class UserControllerService {
       },
     });
   }
+
   /**
    * @param jwt
    * @returns BaseResponseBoolean OK

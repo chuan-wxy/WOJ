@@ -1,10 +1,10 @@
+import type { CancelablePromise } from "../core/CancelablePromise";
+import { OpenAPI } from "../core/OpenAPI";
+import { request as __request } from "../core/request";
 import type { ActivityAddDTO } from "../models/ActivityAddDTO";
 import type { BaseResponseActivityContentVO } from "../models/BaseResponseActivityContentVO";
 import type { BaseResponseListActivityTitleVO } from "../models/BaseResponseListActivityTitleVO";
 import type { BaseResponseString } from "../models/BaseResponseString";
-import type { CancelablePromise } from "../core/CancelablePromise";
-import { OpenAPI } from "../core/OpenAPI";
-import { request as __request } from "../core/request";
 
 export class ActivityControllerService {
   /**
@@ -22,6 +22,7 @@ export class ActivityControllerService {
       mediaType: "application/json",
     });
   }
+
   /**
    * @param id
    * @returns BaseResponseActivityContentVO OK
@@ -38,6 +39,7 @@ export class ActivityControllerService {
       },
     });
   }
+
   /**
    * @returns BaseResponseListActivityTitleVO OK
    * @throws ApiError
