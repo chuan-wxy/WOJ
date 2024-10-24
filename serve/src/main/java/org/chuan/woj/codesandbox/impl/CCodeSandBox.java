@@ -15,6 +15,7 @@ import org.chuan.woj.pojo.ExecuteMessage;
 import org.chuan.woj.pojo.dto.problemSubmit.JudgeInfo;
 import org.chuan.woj.pojo.entity.Problem;
 import org.chuan.woj.utils.ProcessUtils;
+import org.chuan.woj.utils.SystemUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -75,11 +76,24 @@ public class CCodeSandBox implements CodeSandbox {
             return null;
         }
 
-        // 编译代码
-        String command = String.format("g++ -std=c++17 -o %s/Main.exe %s", parentPath, path);
+        String shell = SystemUtil.getShell();
+
         try {
-            Process compileProcess = Runtime.getRuntime().exec(command);
-            ExecuteMessage executeMessage = ProcessUtils.runProcessAndGetMessage(compileProcess, "编译");
+            List<String> cmd = new ArrayList<>();
+            cmd.add(shell);
+            cmd.add(shell.equals("bash") ? "-c" : "/C");
+            cmd.add("g++");
+            cmd.add("-std=c++17");
+            cmd.add("-o");
+            cmd.add(parentPath+File.separator+"Main.exe");
+            cmd.add(path);
+
+            ProcessBuilder pb = new ProcessBuilder(cmd);
+
+            // 合并 错误流和标准流
+            // pb.redirectErrorStream(true);
+            Process process = pb.start();
+            ExecuteMessage executeMessage = ProcessUtils.runProcessAndGetMessage(process, "编译");
             if(executeMessage.getExitValue() != 0){
                 judgeInfoMessageEnum = JudgeInfoMessageEnum.COMPILE_ERROR;
                 judgeInfoResponse.setMessage(judgeInfoMessageEnum.getValue());
