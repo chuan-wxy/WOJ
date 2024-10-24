@@ -86,7 +86,7 @@ const submit = async () => {
   );
   isState.value = true;
   if (result.code === 0) {
-    message.value = result.message ?? "";
+    message.value = result.data.judgeInfo.message ?? "";
     ElMessage.success("提交成功");
   } else {
     ElMessage.error("提交失败：" + result.message);
@@ -113,12 +113,25 @@ onBeforeMount(() => {
 
 <style scoped>
 #problem-content {
-  background: rgba(0, 0, 0, 0%);
   width: 95%;
   margin: auto;
+  background: rgba(0, 0, 0, 0%);
 }
 
 .panel-body {
   padding: 15px;
+}
+
+.cardIsHide {
+  display: none;
+}
+.cardNoHide {
+  display: block;
+}
+.isHide {
+  display: none;
+}
+.noHide {
+  display: block;
 }
 </style>
