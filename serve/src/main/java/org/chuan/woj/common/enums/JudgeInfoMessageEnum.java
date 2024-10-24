@@ -10,11 +10,10 @@ public enum JudgeInfoMessageEnum {
 
     ACCEPTED("成功", "ACCEPTED"),
     WRONG_ANSWER("答案错误", "WRONG_ANSWER"),
-    COMPILE_ERROR("编译错误", "COMPILE_ERROR"),
+    COMPILE_ERROR("编译失败", "COMPILE_ERROR"),
     MEMORY_LIMIT_EXCEEDED("内存超出", "MEMORY_LIMIT_EXCEEDED"),
     TIME_LIMIT_EXCEECED("时间超出", "TIME_LIMIT_EXCEECED"),
     PRESENTATION_ERROR("格式错误", "PRESENTATION_ERROR"),
-    WATING("等待", "WATING"),
     OUPUT_LIMIT_EXCEECED("用户头像", "OUPUT_LIMIT_EXCEECED"),
     DANGEROUS_ERROR("危险", "Dangerous_Error"),
     RUNTIME_ERROR("超时", "Runtime_Error"),
