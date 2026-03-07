@@ -39,8 +39,9 @@
 | 课程图像存放路径  | ACTIVITY_AVATAR_PATH | /usr/local/nginx/html/avatar/activity |            |
 | ssl证书存放路径 | SSL_KEY_STORE_PATH | /home/serve/resource                  | 存放后端的ssl证书 |
 | ssl证书类型   | SSL_KEY_STORE_TYPE                   | JKS                                   |            |
-| ssl证书密码   | SSL_KEY_PASSWORD                   | 21q06e25                                      |            |
-|           |                    |                                       |            |
-|           |                    |                                       |            |
-|           |                    |                                       |            |
-|           |                    |                                       |            |
+
+## 待完善功能
+支持更多编程语言（如 Go、Rust）；
+增加用户排行榜、提交记录查询；
+优化判题效率，支持批量测试用例；
+完善前端界面的响应式适配。
