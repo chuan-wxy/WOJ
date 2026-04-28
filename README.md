@@ -28,7 +28,7 @@
 | MySQL主机地址 | MYSQL_HOST         | 127.0.0.1                             |            |
 | MySQL端口号  | MYSQL_PORT         | 3306                                  |            |
 | MySQL用户名  | MYSQL_USERNAME     | root                                  |            |
-| MySQL密码   | MYSQL_PASSWORD     | 2W0x0y40706@                          |            |
+| MySQL密码   | MYSQL_PASSWORD     | 123456                          |            |
 | Redis主机地址 | REDIS_HOST         | 127.0.0.1                             |            |
 | Redis端口号  | REDIS_PORT         | 6379                                  |            |
 | Redis密码   | REDIS_PASSWORD     | root@123456                           |            |
